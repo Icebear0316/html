@@ -7,10 +7,12 @@
 <body>
 <!--action设置提交地址-->
 <form action="http://www.baidu.com">
-    <!---->
+    <!--placeholder占位文本 name是所有控件必须添加的属性,maxlength最大字符长度
+ value设置控件的值 readonly只读-->
     用户名: <input type="text" name="username" value="abc" readonly maxlength="5" placeholder="输入用户名"><br>
     密码: <input type="password" name="password" placeholder="请输入密码" ><br>
-    性别: <input type="radio" name="gender" value="m" id="r1"><label for="r1">男</label>
+    <!--单选框和多选框必须添加value 否则提交的是on checked默认选中-->
+    性别: <input type="radio" name="gender" value="m" id="r1" checked><label for="r1">男</label>
          <input type="radio" name="gender" value="w" id="r2"><label for="r2">女</label><br>
 
     兴趣爱好: <input type="checkbox" name="hobby" value="wz">王者
