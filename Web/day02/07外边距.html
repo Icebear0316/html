@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    #d1{
+        width: 100px;
+        height: 100px;
+        border: 1px solid red;
+        /*单独某一个方向添加外边距*/
+        margin-left: 50px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        margin-right: 50px;
+        /*四个方向赋值*/
+        margin: 50px;
+        /*上下50,左右100*/
+        margin:50px 100px;
+        /*上右下左顺时针赋值*/
+        margin: 10px 20px 30px 40px;
+    }
+
+    #d2{
+        width: 100px;
+        height: 100px;
+        border: 1px solid red;
+        /*外边距塌陷:兄弟元素上下相邻时,彼此添加外边距,取最大值*/
+        margin-top: 50px;
+    }
+    #s1{
+        margin-right: 50px;
+    }
+    #s2{
+        margin-left: 30px;
+    }
+    #big{
+        width: 200px;
+        height: 200px;
+        background-color: green;
+        overflow: hidden;/*解决外边距塌陷导致的粘连问题*/
+
+    }
+    #big>div{
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        margin-left: 50px;
+        margin-top: 50px;
+
+    }
+  </style>
+
+
+
+
+</head>
+<body>
+<div id="big">
+    <div></div>
+</div>
+<span id="s1">span1</span>
+<span id="s2">span2</span>
+<div id="d1">div1</div>
+<div id="d2">div2</div>
+</body>
+</html>
