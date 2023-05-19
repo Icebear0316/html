@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*后代选择器*/
+        /*body div div p{color: red}*/
+        /*子元素选择器*/
+        body>div>div>p{color: #299929}
+        /*伪类选择器:选择的事元素的状态,包扩:未访问 访问过 悬停 激活*/
+        a:link{color: pink}
+        a:visited{color: green}
+        a:hover{color: blue}
+        a:active{color: yellow}
+
+
+
+
+    </style>
+</head>
+<body>
+
+<a href="http://www.qq.com">超链接1</a>
+<a href="http://www.qssss.com">超链接2</a>
+<a href="http://www.baidu.com">超链接3</a>
+
+
+<p>p1</p>
+<div><p>p2</p></div>
+<div>
+    <div><p>p3</p></div>
+    <div>
+        <p>p4</p>
+        <div><p>p5</p></div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>
