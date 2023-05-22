@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        #d1{
+            width: 100px;
+            height: 100px;
+            border: 10px outset red;
+            /*设置圆角,当值大于宽高一半时为正圆(边框也占宽度)*/
+            border-radius: 100px;
+        }
+        #d2{
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            padding-top: 50px;
+            padding-left: 50px;
+            box-sizing: border-box;
+        }
+        body{
+            margin: 0px;/*去掉自带的8个像素外边距,内容贴边*/
+        }
+
+    </style>
+
+</head>
+<body>
+<div id="d2">内边距</div>
+<div id="d1">边框测试</div>
+
+</body>
+</html>
