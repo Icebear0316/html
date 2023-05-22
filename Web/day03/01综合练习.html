@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    body{
+      font: 12px "simhei", Arial, Helvetica, sans-serif;
+      color: #666;
+    }
+  body>div{
+    height: 233px;
+    width: 198px;
+    background-color: #E8E8E8;
+    /*给div设置居中后,文本内容直接居中
+    子元素:
+      1.块级元素:由于元素是独占一行,元素自身不会居中,但是由于此元素是div的子元素
+                会把给div设置的text-align:center继承下来,
+                这样就会导致块级元素的内容居中
+      2.行内元素:直接元素居中
+
+    */
+    text-align: center;
+  }
+  .title_p{
+    margin: 0;
+    color: black;
+  }
+  .price_p{
+    margin: 6px 0;
+    color: #0aa1ed;
+    font-weight: bold;
+  }
+  a{
+    background-color: #0aa1ed;
+    width: 100px;
+    height: 24px;
+    display: block;
+    margin: 0 auto;
+    line-height: 24px;
+    /*块级元素自身居中,通过外边距margin: 0 auto;*/
+    /*行内块元素自身居中,需要给上级元素添加text-ail*/
+    border-radius: 3px;
+    color: white;
+    text-decoration: none;
+
+  }
+
+
+
+
+
+  </style>
+  
+</head>
+<body>
+<div>
+  <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img3.png" alt="">
+  <p class="title_p">戴尔(DELL)XPS13-9360-R1609 13.3英寸微边框笔记本电脑</p>
+  <p class="price_p">￥4600.00</p>
+  <a href="">查看详情</a>
+</div>
+
+
+</body>
+</html>
