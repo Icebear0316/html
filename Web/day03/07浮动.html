@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    body>div{
+      width: 200px;border: 1px solid red;
+      overflow: hidden;/*解决自动高度识别为0的问题*/
+    }
+    div>div{
+      width: 50px;height: 50px;
+    }
+    #d1{background-color: red ;float: left}
+    #d2{background-color: green;float: left}
+    #d3{background-color: blue;float: left}
+    p{
+      background-color: green;
+
+    }
+    ul{
+      list-style-type: none;/*去掉图标*/
+      margin: 0;
+      padding: 0;
+    }
+    li{
+      float: left;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <div id="d1"></div>
+  <div id="d2"></div>
+  <div id="d3"></div>
+</div>
+<p>这是个p标签</p>
+<ul>
+  <li><a href="">首页</a></li>
+  <li><a href="">免费课</a></li>
+  <li><a href="">直播课</a></li>
+  <li><a href="">精品课</a></li>
+  <li><a href="">线上班</a></li>
+</ul>
+</body>
+</html>
