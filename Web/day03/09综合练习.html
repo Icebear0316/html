@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    body{
+      font: 12px "simhei", Arial, Helvetica, sans-serif;
+      color: #666;
+    }
+    #t_l_div{
+      width: 611px;
+      height: 376px;
+      background-color: #e8e8e8;
+      float: left;
+    }
+    #t_r_div{
+      width: 375px;
+      height: 376px;
+      background-color: #e8e8e8;
+      float: right;
+    }
+    body>div{
+      width: 1000px;
+      margin: 0 auto;
+    }
+    #t_div,#b_div{
+      overflow: hidden;/*避免出现高度为0 导致显示异常*/
+      margin-bottom: 10px;
+    }
+    #b_l_div{
+      width: 366px;
+      height: 233px;
+      background-color: #e8e8e8;
+      float: left;
+    }
+    #b_r_div{
+      float: right;
+    }
+    #b_r_div>div{
+      width: 198px;
+      height: 233px;
+      background-color: #e8e8e8;
+      float: left;/*三个小的向左浮动*/
+      margin-left: 10px;
+    }
+    /***************左上样式开始*****************/
+    #t_l_div>div{
+      width: 254px;height: 232px;
+      margin: 68px 0 0 36px;
+    }
+    .t_title_p{
+      font-size: 32px;color: #333;margin-bottom: 0;
+    }
+    .t_price_p{
+      font-size: 24px;
+      color: #0aa1ed;font-weight: bold;
+      margin-bottom: 12px;
+    }
+    #t_div a{
+      background-color: #0aa1ed;
+      display: block;
+      width: 132px;
+      height: 40px;
+      border-radius: 3px;
+      text-decoration: none;
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      line-height: 40px;
+    }
+    #t_l_div{position: relative;}
+    #t_l_div>img{
+      position: absolute;
+      top:30px;
+      right: 30px;
+      width: 318px;
+      height: 319px;
+    }
+    /******************左上样式结束***************/
+
+    /******************右上样式开始**************/
+    #t_r_div>div{
+      width: 375px;
+      height: 376px;
+    }
+    #t_r_div{
+
+      position: relative;
+    }
+    #t_r_div>img{
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 293px;
+      height: 232px;
+    }
+    #t_r_div p{margin-left: 30px;}
+    #t_r_div a{margin-left: 30px;}
+
+    /******************右上样式结束**************/
+    /******************左下样式结束**************/
+    #b_div>#b_l_div>div{
+      padding-left: 10px;
+    }
+    #b_div>#b_l_div{
+      width: 366px;
+      height: 233px;
+      background-color: #e8e8e8;
+    }
+    #b_div>#b_l_div>#top_div{
+      background-color: #0aa1ed;
+      height: 35px;
+      border-radius: 2px;
+    }
+    #top_div>img{
+      margin-top: 10px;
+    }
+
+    #b_div>#b_l_div>#top_div>span{
+      color: white;
+      font-size: 18px;
+      position: relative;
+      top :-5px;
+    }
+    #b_div ul,p{margin: 0;padding: 0;}
+    #b_div ul{
+      list-style-type: none;
+      overflow: hidden;
+    }
+    #b_div li{
+      float: left;
+      margin-right: 10px;
+    }
+    #b_div p{
+      margin: 20px 0 10px 0 ;
+      color: #62b5ec;}
+    #b_div a{
+      text-decoration: none;
+      color: #0aa1ed;
+    }
+    a:hover{color: #0a7eb8}
+
+    /******************左下样式结束**************/
+    /******************右下样式开始**************/
+    #b_r_div .b_price_p{
+      color: #0aa1ed;font-weight: bold;
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+    #b_r_div{
+      text-align: center;
+    }
+    #b_r_div .b_p{
+      margin-bottom: 6px;
+      margin-top: 0;
+      color: #000;
+      font-size: 12px;
+    }
+    #b_r_div a{
+      background-color: #0aa1ed;
+      display: block;
+      width: 100px;
+      height: 24px;
+      border-radius: 3px;
+      text-decoration: none;
+      color: white;
+      font-size: 12px;
+      text-align: center;
+      line-height: 24px;
+      margin: 0 auto;
+    }
+
+
+
+
+
+
+
+
+
+
+    /******************右下样式结束**************/
+  </style>
+</head>
+<body>
+
+<div>
+  <div id="t_div">
+    
+    <div id="t_l_div">
+      <div>
+        <p class="t_title_p">灵越 燃7000系列</p>
+        <p>酷睿双核i5处理器|256GB SSD| 8GB内存<br>
+          英特尔HD显卡620含共享显卡内存</p>
+        <p class="t_price_p">￥4999.00</p>
+        <a href="">查看详情</a>
+      </div>
+      <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img1.png" alt="">
+    </div>
+    
+    <div id="t_r_div">
+      <div>
+        <p class="t_title_p">颜值 框不住</p>
+        <p>酷睿双核i5处理器|256GB SSD| 8GB内存<br>
+          英特尔HD显卡620含共享显卡内存</p>
+        <p class="t_price_p">￥6888.00</p>
+        <a href="">查看详情</a>
+      </div>
+      <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img2.png" alt="">
+    </div>
+
+  </div>
+
+  <div id="b_div">
+    <!--左下-->
+    <div id="b_l_div">
+      <div id="top_div">
+        <img src="img.png" alt="">
+        <span>电脑,办公/1F</span>
+      </div>
+      <div class="category_div">
+        <p>电脑整机</p>
+        <ul>
+          <li><a href="www.baidu.com">笔记本</a></li>
+          <li><a href="www.baidu.com">游戏机</a></li>
+          <li><a href="www.baidu.com">台式机</a></li>
+          <li><a href="www.baidu.com">一体机</a></li>
+          <li><a href="www.baidu.com">服务器</a></li>
+          <li><a href="www.baidu.com">联想</a></li>
+        </ul>
+      </div>
+      <div class="category_div">
+        <p>电脑配件</p>
+        <ul>
+          <li><a href="www.baidu.com">CPU</a></li>
+          <li><a href="www.baidu.com">SSD硬盘</a></li>
+          <li><a href="www.baidu.com">显示器</a></li>
+          <li><a href="www.baidu.com">显卡</a></li>
+          <li><a href="www.baidu.com">组装电脑</a></li>
+          <li><a href="www.baidu.com">机箱</a></li>
+        </ul>
+      </div>
+      <div class="category_div">
+        <p>外设/游戏</p>
+        <ul>
+          <li><a href="www.baidu.com">键盘</a></li>
+          <li><a href="www.baidu.com">鼠标</a></li>
+          <li><a href="www.baidu.com">U盘</a></li>
+          <li><a href="www.baidu.com">移动硬盘</a></li>
+          <li><a href="www.baidu.com">游戏设备</a></li>
+          <li><a href="www.baidu.com">智能单车</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!--右下-->
+    <div id="b_r_div">
+      <div>
+        <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img3.png" alt="">
+        <div>
+          <p class="b_p">戴尔(DELL)XPS13-9360-R1609 13.3英寸微边框笔记本电脑</p>
+          <p class="b_price_p">￥4600.00</p>
+          <a href="">查看详情</a>
+        </div>
+      </div>
+      <div>
+        <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img4.png" alt="">
+        <div>
+          <p class="b_p">14.8mm超轻薄笔记本电脑 航海王版 13.3英寸微边框笔记本电脑</p>
+          <p class="b_price_p">￥5600.00</p>
+          <a href="">查看详情</a>
+        </div>
+      </div>
+      <div>
+        <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img5.png" alt="">
+        <div>
+          <p class="b_p">联想(Lenovo) YOGA900 多彩版 13.3英寸微边框笔记本电脑</p>
+          <p class="b_price_p">￥6600.00</p>
+          <a href="">查看详情</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+</body>
+</html>
