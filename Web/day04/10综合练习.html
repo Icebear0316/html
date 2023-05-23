@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        td{width: 100px;}
+    </style>
+</head>
+<body>
+
+<table border="1">
+  <tr><td>照片:</td><td id="img_td"></td></tr>
+  <tr><td>姓名:</td><td id="name_td"></td></tr>
+  <tr><td>年龄:</td><td id="age_td"></td></tr>
+  <tr><td>好友:</td><td id="friends_td"></td></tr>
+</table>
+<input type="button" value="加载数据" onclick="f()">
+<script>
+  let nameTd = document.querySelector("#name_td");
+  let ageTd = document.querySelector("#age_td");
+  let imgTd = document.querySelector("#img_td");
+  let friendsTd = document.querySelector("#friends_td");
+  function f() {
+    //自定义对象   模拟从服务器请求到的数据
+    let p = {name:"传奇哥",age:18,url:"../2.jpg",friends:["白熊","貂蝉","武则天","孙尚香"]};
+    nameTd.innerText = p.name;
+    ageTd.innerText = p.age;
+    //显示图片
+    let img = document.createElement("img");
+    img.src = p.url;
+    img.width = 100;
+    imgTd.append(img);
+    //显示好友
+      let ul = document.createElement("ul");
+      //遍历好友数组
+      for (let friend of p.friends) {
+          //创建li
+          let li = document.createElement("li");
+          li.innerText = friend;//把好友名字显示到li里面
+          ul.append(li);//把li添加到ul里面
+      }
+      friendsTd.append(ul);
+  }
+</script>
+</body>
+</html>
