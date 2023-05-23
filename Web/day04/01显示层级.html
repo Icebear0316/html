@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #d1{
+            width: 50px;height: 100px;background-color: red;
+            position: absolute;
+            /*通过z-index控制元素的显示层级,值越大显示越靠前,默认不写时数值为0*/
+            z-index: 1;
+        }
+        #d2{
+            width: 100px;height: 50px;background-color: blue;
+            position: absolute;
+            z-index: 2;
+        }
+
+    </style>
+</head>
+<body>
+<div id="d1">div1</div>
+<div id="d2">div2</div>
+</body>
+</html>
