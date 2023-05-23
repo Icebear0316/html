@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<input type="text" value="abc">
+<input type="button" value="按钮" onclick="f()">
+<input type="button" value="平方" onclick="sq()">
+<div>div</div>
+<h3>h3</h3>
+<script>
+  //得到文本框
+  let i = document.querySelector("input");
+  //通过选择器得到页面中元素对象
+  let h = document.querySelector("h3");
+
+  function sq() {
+    //NaN:Not a Number不是一个数
+    if(isNaN(i.value)){
+      h.innerText = "输入错误!";
+      return;
+    }
+    //让文本框的值相乘后 把结果赋值给h3
+    //h.innerTest = i.value*i.value;
+    //当字符串进行-*/运算时会自动转成数值后再运算
+    //h.innerText=parseFloat(i.value)+parseFloat(i.value);
+    h.innerText = i.value*1+i.value*1;
+  }
+  function f() {
+
+    //获取或修改控件的值
+    //alert(i.value);获取
+    i.value= "内容被改掉了";
+
+
+
+
+    //修改元素的文本内容
+    h.innerText = "今天比较热";
+    let d = document.querySelector("div");
+    d.innerText="这个是div";
+  }
+</script>
+</body>
+</html>
