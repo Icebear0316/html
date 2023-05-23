@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="i1">
+<input type="text" id="i2">
+<input type="button" value="加" onclick="f(1)">
+<input type="button" value="减" onclick="f(2)">
+<input type="button" value="乘" onclick="f(3)">
+<input type="button" value="除" onclick="f(4)">
+<h3>结果:<span></span></h3>
+<script>
+    //得到两个文本框
+    let i1 = document.querySelector("#i1");
+    let i2 = document.querySelector("#i2");
+    let s = document.querySelector("span");
+    function f(x) {
+        if (isNaN(i1.value) || isNaN(i2.value)) {
+            s.innerText = "输入错误"
+            return;
+        }
+        switch (x) {
+            case 1:
+                s.innerText = i1.value * 1 + i2.value * 1;
+                break;
+            case 2:
+                s.innerText = i1.value - i2.value;
+                break;
+            case 3:
+                s.innerText = i1.value * i2.value;
+                break;
+            case 4:
+                s.innerText = i1.value / i2.value;
+        }
+    }
+</script>
+</body>
+</html>
