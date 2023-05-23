@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
-
+<!--
+oncLick是点击事件属性，当点击按钮时执行里面的JS代码alert('xxx )弹出提示框
+-->
+<input type="button"value="内联引入" onclick="alert('引入成功')">
+<script src="my.js"></script>
+<script>
+  console.log('内部引入成功!')
+</script>
 </body>
 </html>
