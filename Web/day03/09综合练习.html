@@ -68,6 +68,9 @@
       font-size: 20px;
       text-align: center;
       line-height: 40px;
+      /*只能给非静态定位的元素添加以下样式*/
+      position: relative;
+      z-index: 1;
     }
     #t_l_div{position: relative;}
     #t_l_div>img{
@@ -96,7 +99,12 @@
       height: 232px;
     }
     #t_r_div p{margin-left: 30px;}
-    #t_r_div a{margin-left: 30px;}
+    #t_r_div a{
+      margin-left: 30px;
+      /*只能给非静态定位的元素添加以下样式:层级提升*/
+      position: relative;
+      z-index: 1;
+    }
 
     /******************右上样式结束**************/
     /******************左下样式结束**************/
@@ -138,6 +146,7 @@
     #b_div a{
       text-decoration: none;
       color: #0aa1ed;
+
     }
     a:hover{color: #0a7eb8}
 
@@ -172,15 +181,20 @@
     }
 
 
-
-
-
-
-
-
-
-
     /******************右下样式结束**************/
+    img{
+      /*设置动画的持续时间:1s=1秒*/
+      transition-duration: 1s;
+    }
+    img:hover{
+      /*当鼠标悬停在图片上的时候缩放1.1倍*/
+      transform: scale(1.1);
+    }
+
+
+
+
+
   </style>
 </head>
 <body>
