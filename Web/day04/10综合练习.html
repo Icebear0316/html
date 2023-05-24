@@ -32,14 +32,14 @@
     img.width = 100;
     imgTd.append(img);
     //显示好友
-      let ul = document.createElement("ul");
+    let ul = document.createElement("ul");
       //遍历好友数组
-      for (let friend of p.friends) {
+    for (let friend of p.friends) {
           //创建li
           let li = document.createElement("li");
           li.innerText = friend;//把好友名字显示到li里面
           ul.append(li);//把li添加到ul里面
-      }
+    }
       friendsTd.append(ul);
   }
 </script>
