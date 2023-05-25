@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+    <style>
+        .el-dropdown-link {
+            cursor: pointer;
+            color: #409EFF;
+        }
+        .el-icon-arrow-down {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+
+    <h1>{{info}}</h1>
+    <el-dropdown @command="handleCommand">
+  <span class="el-dropdown-link">
+    下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+  </span>
+    <el-dropdown-menu slot="dropdown" >
+        <el-dropdown-item command="黄金糕">黄金糕</el-dropdown-item>
+        <el-dropdown-item command="狮子头">狮子头</el-dropdown-item>
+        <el-dropdown-item command="螺蛳粉">螺蛳粉</el-dropdown-item>
+        <el-dropdown-item command="双皮奶" disabled>双皮奶</el-dropdown-item>
+        <el-dropdown-item command="蚵仔煎" divided>蚵仔煎</el-dropdown-item>
+    </el-dropdown-menu>
+</el-dropdown>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                info:""
+            }
+        },
+        methods: {
+            handleCommand(command) {
+                v.info=command;
+                this.$message('您选择了: ' + command);
+            }
+        }
+    })
+</script>
+</html>
