@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+  <input type="text" placeholder="员工姓名" v-model="emp.name" >
+  <input type="text" placeholder="员工工资" v-model="emp.salary" >
+  <input type="text" placeholder="员工工作" v-model="emp.job" >
+  <input type="button" value="添加" @click="f()">
+  <table border="1">
+    <caption>员工列表</caption>
+    <tr>
+      <th>编号</th>
+      <th>姓名</th>
+      <th>工资</th>
+      <th>工作</th>
+      <th>操作</th>
+    </tr>
+    <tr v-for="(a,i) in arr">
+      <td>{{i+1}}</td>
+      <td>{{a.name}}</td>
+      <td>{{a.salary}}</td>
+      <td>{{a.job}}</td>
+      <td><input type="button" value="删除" @click="del(i)"></td>
+    </tr>
+  </table>
+</div>
+<script src="js/vue.min.js"></script>
+<script>
+  let v = new Vue({
+    el:"body>div",
+    data:{
+        arr:[
+              {name:"留别",salary:1000,job:"钓鱼"},
+              {name:"留别",salary:1000,job:"钓鱼"},
+              {name:"留别",salary:1000,job:"钓鱼"}],
+        emp:{name:"",salary:"",job:""},
+      },
+    methods:{
+      f(){
+        v.arr.push({name:v.emp.name,salary:v.emp.salary,job:v.emp.job});
+      },
+      del(i){
+        v.arr.splice(i,1);
+      }
+    }
+  })
+</script>
+</body>
+</html>
