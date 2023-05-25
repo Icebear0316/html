@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+    <style>
+        .c1{border: red solid 1px;border-radius: 5px;height: 50px}
+    </style>
+</head>
+<body>
+<div id="app">
+<el-row>
+    <el-col span="12"><div class="c1"></div></el-col>
+    <el-col span="12"><div class="c1"></div></el-col>
+</el-row>
+    <el-row>
+        <el-col span="8"><div class="c1"></div></el-col>
+        <el-col span="8"><div class="c1"></div></el-col>
+        <el-col span="8"><div class="c1"></div></el-col>
+    </el-row>
+    <el-row>
+        <el-col span="6"><div class="c1"></div></el-col>
+        <el-col span="6"><div class="c1"></div></el-col>
+        <el-col span="6"><div class="c1"></div></el-col>
+        <el-col span="6"><div class="c1"></div></el-col>
+    </el-row>
+    <!--带有居中效果的2:1两部分画面-->
+    <div style="width: 1200px;margin: 0 auto">
+        <el-row gutter="20">
+            <el-col span="16"><div class="c1"></div></el-col>
+            <el-col span="8"><div class="c1"></div></el-col>
+        </el-row>
+    </div>
+    <!--1:3:1:1-->
+    <div style="width: 1200px;margin: 0 auto">
+        <el-row gutter="10">
+            <el-col span="4"><div class="c1"></div></el-col>
+            <el-col span="12"><div class="c1"></div></el-col>
+            <el-col span="4"><div class="c1"></div></el-col>
+            <el-col span="4"><div class="c1"></div></el-col>
+        </el-row>
+    </div>
+    <!--123 间距20-->
+    <div style="width: 1200px;margin: 0 auto">
+        <el-row gutter="20">
+            <el-col span="4"><div class="c1"></div></el-col>
+            <el-col span="8"><div class="c1"></div></el-col>
+            <el-col span="12"><div class="c1"></div></el-col>
+        </el-row>
+    </div>
+    <!--8等分 居中间距5-->
+    <div style="width: 1200px;margin: 0 auto">
+        <el-row gutter="5">
+                <el-col v-for="i in 8" :span="3">
+                    <div class="c1">{{i}}</div>
+                </el-col>
+        </el-row>
+    </div>
+    <h3>列偏移</h3>
+    <el-row>
+        <el-col offset="14" span="10">
+            <div class="c1"></div>
+        </el-col>
+    </el-row>
+
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+
+            }
+        },
+        methods: {
+
+        }
+    })
+</script>
+</html>
