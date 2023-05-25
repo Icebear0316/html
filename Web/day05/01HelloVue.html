@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+  <!--插值,让此处的文本内容info变量进行绑定-->
+  {{info}}
+</div>
+<!--引入vue.js框架文件-->
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script>
+  //创建Vue对象 Vue相当于是MVVM设计模式中的VM视图模型
+  let v = new Vue({
+    el:"body>div",//el=element 指定Vue框架的管理范围
+    data:{//在data里面定义和页面元素进行绑定的变量
+      info:"Hello Vue !",
+    }
+  })
+</script>
+</body>
+</html>
