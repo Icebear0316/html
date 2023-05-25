@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    {{info}}
+    <input type="button" value="按钮" @click="f()">
+    <input type="button" value="按钮" @click="f">
+    <input type="button" value="按钮" v-on:="f()">
+</div>
+<script src="js/vue.min.js"></script>
+<script>
+    let v = new Vue({
+        el:"body>div",
+        data:{
+            info:"事件绑定"
+        },
+        methods:{
+          f(){
+              alert("按钮点击成功")
+          }
+        }
+    })
+</script>
+</body>
+</html>
