@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <input type="text" v-model="n1"><input type="text" v-model="n2">
+    <input type="button" value="加" @click="f(1)">
+    <input type="button" value="减" @click="f(2)">
+    <input type="button" value="乘" @click="f(3)">
+    <input type="button" value="除" @click="f(4)">
+    <h3>结果: {{result}}</h3>
+</div>
+<script src="js/vue.min.js"></script>
+<script>
+    let v = new Vue({
+        el:"body>div",
+        data:{
+            result:"",n1:"",n2:""
+        },
+        methods:{
+            f(x){
+                if(isNaN(v.n1)||isNaN(v.n2)){
+                    v.result="输入错误";
+                    return;
+                }
+                switch (x) {
+                    case 1:
+                        v.result=v.n1*1+v.n2*1;
+                        break;
+                    case 2:
+                        v.result=v.n1-v.n2;
+                        break;
+                    case 3:
+                        v.result=v.n1*v.n2;
+                        break;
+                    case 4:
+                        v.result=v.n1/v.n2;
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
