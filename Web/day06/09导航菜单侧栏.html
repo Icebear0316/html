@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+    <div style="width: 300px">
+        <el-menu>
+            <el-submenu index="1">
+                <template slot="title">
+                    <i class="el-icon-edit"></i><span>魏国</span>
+                </template>
+                <el-menu-item index="1-1">曹操</el-menu-item>
+                <el-menu-item index="1-2">司马懿</el-menu-item>
+                <el-menu-item index="1-3">夏侯惇</el-menu-item>
+            </el-submenu>
+
+            <el-submenu index="2">
+                <template slot="title">
+                    <i class="el-icon-edit"></i><span>蜀国</span>
+                </template>
+                <el-menu-item index="2-1">刘备</el-menu-item>
+                <el-menu-item index="2-2">关羽</el-menu-item>
+                <el-menu-item index="2-3">张飞</el-menu-item>
+            </el-submenu>
+
+            <el-submenu index="3">
+                <template slot="title">
+                    <i class="el-icon-edit"></i><span>吴国</span>
+                </template>
+                <el-menu-item index="3-1">孙权</el-menu-item>
+                <el-menu-item index="3-2">周瑜</el-menu-item>
+                <el-menu-item index="3-3">鲁肃</el-menu-item>
+            </el-submenu>
+        </el-menu>
+    </div>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                activeIndex: '3',
+                activeIndex2: '1',
+                arr:["首页","直播课","线上课","脱产班","关于我们"]
+            }
+        },
+        methods: {
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        }
+    })
+</script>
+</html>
