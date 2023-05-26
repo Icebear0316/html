@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+    <style>
+        .center{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        #footer_center p{
+            margin: 0;
+        }
+        #footer_center h3{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-header height="80px">
+            <div class="center">
+                <el-row gutter="20">
+                    <el-col span="6">
+                        <img src="imgs/icon.png" width="196" height="65">
+                    </el-col>
+                    <el-col span="10">
+                        <el-menu mode="horizontal" active-text-color="orange">
+                            <el-menu-item index="0">首页</el-menu-item>
+                            <el-menu-item index="1">食谱</el-menu-item>
+                            <el-menu-item index="2">视频</el-menu-item>
+                            <el-menu-item index="3">资讯</el-menu-item>
+                        </el-menu>
+                    </el-col>
+                    <el-col span="6">
+                        <el-input style="margin-top: 15px" placeholder="请输入搜索的关键字">
+                            <el-button slot="append" icon="el-icon-search"></el-button>
+                        </el-input>
+                    </el-col>
+                    <el-col span="2">
+                        <el-popover
+                                placement="top-start"
+                                title="欢迎来到烘焙坊!"
+                                width="200"
+                                trigger="hover">
+                            <div slot="reference">
+                                <i class="el-icon-user"
+                                   style="font-size: 30px;position: relative;top: 20px"></i>
+                            </div>
+                            <el-button type="info">注册</el-button>
+                            <el-button style="background-color: orange">登录</el-button>
+                        </el-popover>
+                    </el-col>
+                </el-row>
+            </div>
+        </el-header>
+        <el-main style="background-image: url('imgs/loginbg.gif');
+                    height: 500px;background-size: cover;
+                    background-position: center">
+            <el-card style="width: 500px;height: 300px;;margin: 50px auto">
+                <el-form label-width="80px" style="width: 400px;margin: 50px auto">
+                    <el-form-item label="用户名">
+                        <el-input placeholder="请输入用户名"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码">
+                        <el-input placeholder="请输入用密码"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary">登录</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-card>
+        </el-main>
+        <el-footer style="height: 280px;background-color: #2f3234;padding:50px 0">
+            <div class="center" style="text-align: center;color: #666">
+                <el-row>
+                    <el-col span="8">
+                        <img src="imgs/icon.png">
+                        <p>教程灵感就看烘焙坊</p>
+                        <p>烘焙行业网络社区平台</p>
+                        <p>全国百城上千个职位等你来</p>
+                    </el-col>
+                    <el-col span="8">
+                        <el-row id="footer_center">
+                            <el-col span="8">
+                                <h3>关于我们</h3>
+                                <p>关于我们</p><p>烘焙学院</p>
+                                <p>烘焙食谱</p><p>分类信息</p>
+                                <p>求职招聘</p><p>社区交流</p>
+                            </el-col>
+                            <el-col span="8">
+                                <h3>支持与服务</h3>
+                                <p>联系我们</p><p>广告投放</p>
+                                <p>用户协议</p><p>友情链接</p>
+                                <p>在线反馈</p><p>我发投稿</p>
+                            </el-col>
+                            <el-col span="8">
+                                <h3>底部导航</h3>
+                                <p>Archiver</p><p>手机版</p>
+                                <p>小黑屋</p>
+                            </el-col>
+                        </el-row>
+
+                    </el-col>
+                    <el-col span="8">
+                        <div style="font-size: 58px;margin-top: 30px">
+                            <span style="color: orange">烘焙</span><span style="color: #666666">坊</span>
+                        </div>
+                        <p>烘焙行业网络社区平台</p>
+                    </el-col>
+                </el-row>
+            </div>
+
+        </el-footer>
+    </el-container>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+
+            }
+        },
+        methods: {
+
+        }
+    })
+</script>
+</html>
