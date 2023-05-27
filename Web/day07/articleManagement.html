@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+    <style>
+        .center{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        #footer_center p{
+            margin: 0;
+        }
+        #footer_center h3{
+            color: white;
+        }
+        body{
+            background-color: rgb(241,242,243);
+        }
+        .el-header{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="app" >
+    <el-container>
+        <el-header height="80px" >
+            <div class="center">
+                <el-row gutter="20">
+                    <el-col span="6">
+                        <img src="imgs/icon.png" width="196" height="65">
+                    </el-col>
+                    <el-col span="10">
+                        <el-menu mode="horizontal" active-text-color="orange">
+                            <el-menu-item index="0">首页</el-menu-item>
+                            <el-menu-item index="1">食谱</el-menu-item>
+                            <el-menu-item index="2">视频</el-menu-item>
+                            <el-menu-item index="3">资讯</el-menu-item>
+                        </el-menu>
+                    </el-col>
+                    <el-col span="6">
+                        <el-input style="margin-top: 15px" placeholder="请输入搜索的关键字">
+                            <el-button slot="append" icon="el-icon-search"></el-button>
+                        </el-input>
+                    </el-col>
+                    <el-col span="2">
+                        <el-popover
+                                placement="top-start"
+                                title="欢迎来到烘焙坊!"
+                                width="200"
+                                trigger="hover">
+                            <div slot="reference">
+                                <i class="el-icon-user"
+                                   style="font-size: 30px;position: relative;top: 20px"></i>
+                            </div>
+                            <el-button type="info">注册</el-button>
+                            <el-button style="background-color: orange">登录</el-button>
+                        </el-popover>
+                    </el-col>
+                </el-row>
+            </div>
+        </el-header>
+        <el-main class="center" >
+            <el-row gutter="20">
+                <el-col span="4">
+
+                    <el-card style="height: 500px">
+                        <p @click="location.href='personal.html'">个人信息</p>
+                        <p style="color: orange" >稿件管理</p>
+                    </el-card>
+                </el-col>
+                <el-col span="20">
+                    <el-card>
+                        <!--标签页卡开始-->
+                        <el-tabs v-model="type"  type="card" @tab-click="handleClick">
+                            <el-tab-pane label="食谱" name="1"></el-tab-pane>
+                            <el-tab-pane label="视频" name="2"></el-tab-pane>
+                            <el-tab-pane label="资讯" name="3"></el-tab-pane>
+                        </el-tabs>
+                        <!--标签页卡结束-->
+                        <el-button type="primary">发帖</el-button>
+                        <!--内容列表开始-->
+                        <el-table :data="contentArr" border>
+                            <el-table-column label="标题" width="150px"
+                                prop="title" align="center"></el-table-column>
+                            <el-table-column label="封面" width="60px">
+                                <template slot-scope="scope">
+                                   <img :src="scope.row.imgUrl" width="50px">
+                                </template>
+
+                            </el-table-column>
+                            <el-table-column label="摘要" width="300px"
+                                             prop="brief" align="center"></el-table-column>
+                            <el-table-column label="类型"
+                                             prop="categoryName" align="center"></el-table-column>
+                            <el-table-column label="浏览量"
+                                             prop="viewCount" align="center"></el-table-column>
+                            <el-table-column label="回复量"
+                                             prop="commentCount" align="center"></el-table-column>
+                            <el-table-column label="创建时间"
+                                             prop="createTime" align="center"></el-table-column>
+                            <el-table-column label="操作"  width="200px" fixed="right"
+                                             align="center">
+                                <template slot-scope="scope">
+                                    <el-button size="mini" type="success"
+                                               @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                                    <el-button size="mini" type="danger"
+                                               @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <!--内容列表结束-->
+                    </el-card>
+                </el-col>
+            </el-row>
+        </el-main>
+        <el-footer style="height: 280px;background-color: #2f3234;padding:50px 0">
+            <div class="center" style="text-align: center;color: #666">
+                <el-row>
+                    <el-col span="8">
+                        <img src="imgs/icon.png">
+                        <p>教程灵感就看烘焙坊</p>
+                        <p>烘焙行业网络社区平台</p>
+                        <p>全国百城上千个职位等你来</p>
+                    </el-col>
+                    <el-col span="8">
+                        <el-row id="footer_center">
+                            <el-col span="8">
+                                <h3>关于我们</h3>
+                                <p>关于我们</p><p>烘焙学院</p>
+                                <p>烘焙食谱</p><p>分类信息</p>
+                                <p>求职招聘</p><p>社区交流</p>
+                            </el-col>
+                            <el-col span="8">
+                                <h3>支持与服务</h3>
+                                <p>联系我们</p><p>广告投放</p>
+                                <p>用户协议</p><p>友情链接</p>
+                                <p>在线反馈</p><p>我发投稿</p>
+                            </el-col>
+                            <el-col span="8">
+                                <h3>底部导航</h3>
+                                <p>Archiver</p><p>手机版</p>
+                                <p>小黑屋</p>
+                            </el-col>
+                        </el-row>
+
+                    </el-col>
+                    <el-col span="8">
+                        <div style="font-size: 58px;margin-top: 30px">
+                            <span style="color: orange">烘焙</span><span style="color: #666666">坊</span>
+                        </div>
+                        <p>烘焙行业网络社区平台</p>
+                    </el-col>
+                </el-row>
+            </div>
+
+        </el-footer>
+    </el-container>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                type:'1',
+                contentArr:[
+                    {
+                        "id":11,
+                        "title":"入口即酥的超浓花生酱酥饼a",
+                        "brief":"花生酱+花生油=超浓郁花生香 没有糖粉，用了白砂糖 本是入口即酥 却又在酥后留下些许颗粒感 花生浓香",
+                        "imgUrl":"imgs/a.jpg",
+                        "type":1,
+                        "categoryName":"家常菜",
+                        "viewCount":8,
+                        "commentCount":0,
+                        "createTime":"2023/03/27 19:51:45"
+                    },
+                    {
+                        "id":12,
+                        "title":"枣泥花式面包,好吃到爆",
+                        "brief":"之前做了枣泥馅，配上花式面包，好吃到爆。 枣泥花式面包的用料 肉松面包面团 见肉松面包配方，枣泥",
+                        "imgUrl":"imgs/b.jpg",
+                        "type":1,
+                        "categoryName":"面包",
+                        "viewCount":1,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:12:42"
+                    },
+                    {
+                        "id":13,
+                        "title":"酥脆培根吐司芝士卷，人见人爱",
+                        "brief":"人见人爱的培根平时一般都是放吐司里面做三文治吃今天培根要露脸啦哈哈哈哈简单快手酥脆可口的培根吐司芝士",
+                        "imgUrl":"imgs/c.jpg",
+                        "type":1,
+                        "categoryName":"家常菜",
+                        "viewCount":1,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:15:43"
+                    },
+                    {
+                        "id":14,
+                        "title":"开放式三明治,一份小清新快手早餐",
+                        "brief":" 昨夜下了很怕人的骤雨，清晨办公桌上的薄荷微微抖动它的叶子。一份小清新快手早餐，让生活简洁不简单。 ",
+                        "imgUrl":"imgs/d.jpg",
+                        "type":1,
+                        "categoryName":"小食",
+                        "viewCount":1,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:16:24"
+                    },
+                    {
+                        "id":15,
+                        "title":"核桃葡萄干软欧：蔓越莓种面",
+                        "brief":"干，来款核桃葡萄干软欧吧！核桃是个宝，好处太多，不一一列举啦！ 蔓越莓种面的用料 主面团， 蔓越",
+                        "imgUrl":"imgs/a.jpg",
+                        "type":1,
+                        "categoryName":"面包",
+                        "viewCount":2,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:16:56"
+                    },
+                    {
+                        "id":16,
+                        "title":"蔓越莓绿豆糕，味道还不错值得一试!",
+                        "brief":"全家都很喜欢吃绿豆糕，但楼下甜品店的绿豆糕太甜了，那就自己动手做吧。之前尝试过带皮绿豆，颜色做出来没",
+                        "imgUrl":"imgs/b.jpg",
+                        "type":1,
+                        "categoryName":"面包",
+                        "viewCount":4,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:17:35"
+                    },
+                    {
+                        "id":17,
+                        "title":"心形火龙果椰蓉面包,任谁都抗拒不了",
+                        "brief":"椰蓉的香味 任谁都抗拒不了吧正好还有半个红心火龙果做成了***嫩的小爱心面包可爱又好吃可以做9个。 ",
+                        "imgUrl":"imgs/c.jpg",
+                        "type":1,
+                        "categoryName":"小食",
+                        "viewCount":15,
+                        "commentCount":1,
+                        "createTime":"2023/03/28 16:18:12"
+                    },
+                    {
+                        "id":18,
+                        "title":"爆浆抹茶甜甜圈面包，自带幸福感的小甜甜",
+                        "brief":"爆浆抹茶甜甜圈面包好吃的起飞的爆浆抹茶甜甜圈，从里到外被抹茶包裹着，自带幸福感的小甜甜，抹茶控们完全",
+                        "imgUrl":"imgs/d.jpg",
+                        "type":1,
+                        "categoryName":"家常菜",
+                        "viewCount":15,
+                        "commentCount":1,
+                        "createTime":"2023/03/28 16:20:26"
+                    }
+                ]
+            }
+        },
+        methods: {
+            handleClick(tab, event) {
+                console.log(tab, event);
+            }
+        }
+    })
+</script>
+</html>

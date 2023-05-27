@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+    <el-container>
+        <el-header height="70px" style="background-color: #386582">
+            <h1 style="color: white;font-size: 30px;margin: 0;
+                            line-height: 70px">
+                烘焙坊后台管理系统
+                <span style="font-size: 20px;float: right">欢迎汤姆回来!
+                    <a href="" style="color: orange">退出登录</a>
+                </span>
+            </h1>
+        </el-header>
+        <el-container>
+            <el-aside width="200px">
+                <el-menu default-active="1" style="height: 1000px" active-text-color="orange">
+                    <img src="imgs/icon.png" width="150px">
+                    <el-divider></el-divider>
+                    <el-menu-item index="1">
+                        <template slot="title">
+                            <i class="el-icon-user"></i><span>用户管理</span>
+                        </template>
+                    </el-menu-item>
+                    <el-menu-item index="2">
+                        <template slot="title">
+                            <i class="el-icon-picture"></i><span>轮播图</span>
+                        </template>
+                    </el-menu-item>
+                    <el-menu-item index="3">
+                        <template slot="title">
+                            <i class="el-icon-s-order"></i><span>烘焙食谱</span>
+                        </template>
+                    </el-menu-item>
+                    <el-menu-item index="4">
+                        <template slot="title">
+                            <i class="el-icon-video-camera"></i><span>烘焙视频</span>
+                        </template>
+                    </el-menu-item>
+                    <el-menu-item index="5">
+                        <template slot="title">
+                            <i class="el-icon-info"></i><span>行业资讯</span>
+                        </template>
+                    </el-menu-item>
+                </el-menu>
+
+            </el-aside>
+            <el-main>
+                <!--用户表格开始-->
+                <el-table :data="userArr">
+                    <el-table-column type="index" label="编号"></el-table-column>
+                    <el-table-column prop="userName" label="用户名"></el-table-column>
+                    <el-table-column prop="nickName" label="昵称"></el-table-column>
+                    <el-table-column label="头像">
+                        <template slot-scope="scope">
+                            <el-avatar :src="scope.row.imgUrl"></el-avatar>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="管理员">
+                        <template slot-scope="scope">
+                            <el-switch v-model="scope.row.isAdmin"></el-switch>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="createTime" label="创建时间"></el-table-column>
+                    <el-table-column label="操作">
+                        <template slot-scope="scope">
+                            <el-button type="danger">删除</el-button>
+                        </template>
+                    </el-table-column>
+
+                </el-table>
+                <!--用户表格结束-->
+                <!--轮播图表格开始-->
+                <el-table :data="bannerArr">
+                    <el-table-column type="index" label="编号"></el-table-column>
+                    <el-table-column prop="userName" label="用户名"></el-table-column>
+                    <el-table-column prop="nickName" label="昵称"></el-table-column>
+                    <el-table-column label="头像">
+                        <template slot-scope="scope">
+                            <el-avatar :src="scope.row.imgUrl"></el-avatar>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="管理员">
+                        <template slot-scope="scope">
+                            <el-switch v-model="scope.row.isAdmin"></el-switch>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="createTime" label="创建时间"></el-table-column>
+                    <el-table-column label="操作">
+                        <template slot-scope="scope">
+                            <el-button type="danger">删除</el-button>
+                        </template>
+                    </el-table-column>
+
+                </el-table>
+                <!--轮播图表格结束-->
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!-- import JavaScript -->
+<script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                userArr:[
+                    {
+                        "id":12,
+                        "nickName":"汤姆",
+                        "userName":"tom",
+                        "isAdmin":true,
+                        "imgUrl":"imgs/head.jpg",
+                        "createTime":"2023/03/31 00:43:52"
+                    },
+                    {
+                        "id":13,
+                        "nickName":"刘德华",
+                        "userName":"ldh",
+                        "isAdmin":false,
+                        "imgUrl":"imgs/a.jpg",
+                        "createTime":"2023/03/25 15:03:08"
+                    },
+                    {
+                        "id":17,
+                        "nickName":"杰瑞",
+                        "userName":"jerry",
+                        "isAdmin":false,
+                        "imgUrl":"imgs/b.jpg",
+                        "createTime":"2023/05/11 20:40:44"
+                    }
+                ],
+                bannerArr:[
+                    {id:1,imgUrl:"imgs/banner1.jpg",
+                        code:"p001",createTime:"2023/5/27 14:00:20"},
+                    {id:2,imgUrl:"imgs/banner2.jpg",
+                        code:"p002",createTime:"2023/5/27 14:00:20"},
+                    {id:3,imgUrl:"imgs/banner3.jpg",
+                        code:"p003",createTime:"2023/5/27 14:00:20"}],
+                contentArr:[
+                    {
+                        "id":11,
+                        "title":"入口即酥的超浓花生酱酥饼a",
+                        "brief":"花生酱+花生油=超浓郁花生香 没有糖粉，用了白砂糖 本是入口即酥 却又在酥后留下些许颗粒感 花生浓香",
+                        "imgUrl":"imgs/a.jpg",
+                        "type":1,
+                        "categoryName":"家常菜",
+                        "viewCount":8,
+                        "commentCount":0,
+                        "createTime":"2023/03/27 19:51:45"
+                    },
+                    {
+                        "id":12,
+                        "title":"枣泥花式面包,好吃到爆",
+                        "brief":"之前做了枣泥馅，配上花式面包，好吃到爆。 枣泥花式面包的用料 肉松面包面团 见肉松面包配方，枣泥",
+                        "imgUrl":"imgs/b.jpg",
+                        "type":1,
+                        "categoryName":"面包",
+                        "viewCount":1,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:12:42"
+                    },
+                    {
+                        "id":13,
+                        "title":"酥脆培根吐司芝士卷，人见人爱",
+                        "brief":"人见人爱的培根平时一般都是放吐司里面做三文治吃今天培根要露脸啦哈哈哈哈简单快手酥脆可口的培根吐司芝士",
+                        "imgUrl":"imgs/c.jpg",
+                        "type":1,
+                        "categoryName":"家常菜",
+                        "viewCount":1,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:15:43"
+                    },
+                    {
+                        "id":14,
+                        "title":"开放式三明治,一份小清新快手早餐",
+                        "brief":" 昨夜下了很怕人的骤雨，清晨办公桌上的薄荷微微抖动它的叶子。一份小清新快手早餐，让生活简洁不简单。 ",
+                        "imgUrl":"imgs/d.jpg",
+                        "type":1,
+                        "categoryName":"小食",
+                        "viewCount":1,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:16:24"
+                    },
+                    {
+                        "id":15,
+                        "title":"核桃葡萄干软欧：蔓越莓种面",
+                        "brief":"干，来款核桃葡萄干软欧吧！核桃是个宝，好处太多，不一一列举啦！ 蔓越莓种面的用料 主面团， 蔓越",
+                        "imgUrl":"imgs/a.jpg",
+                        "type":1,
+                        "categoryName":"面包",
+                        "viewCount":2,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:16:56"
+                    },
+                    {
+                        "id":16,
+                        "title":"蔓越莓绿豆糕，味道还不错值得一试!",
+                        "brief":"全家都很喜欢吃绿豆糕，但楼下甜品店的绿豆糕太甜了，那就自己动手做吧。之前尝试过带皮绿豆，颜色做出来没",
+                        "imgUrl":"imgs/b.jpg",
+                        "type":1,
+                        "categoryName":"面包",
+                        "viewCount":4,
+                        "commentCount":0,
+                        "createTime":"2023/03/28 16:17:35"
+                    },
+                    {
+                        "id":17,
+                        "title":"心形火龙果椰蓉面包,任谁都抗拒不了",
+                        "brief":"椰蓉的香味 任谁都抗拒不了吧正好还有半个红心火龙果做成了***嫩的小爱心面包可爱又好吃可以做9个。 ",
+                        "imgUrl":"imgs/c.jpg",
+                        "type":1,
+                        "categoryName":"小食",
+                        "viewCount":15,
+                        "commentCount":1,
+                        "createTime":"2023/03/28 16:18:12"
+                    },
+                    {
+                        "id":18,
+                        "title":"爆浆抹茶甜甜圈面包，自带幸福感的小甜甜",
+                        "brief":"爆浆抹茶甜甜圈面包好吃的起飞的爆浆抹茶甜甜圈，从里到外被抹茶包裹着，自带幸福感的小甜甜，抹茶控们完全",
+                        "imgUrl":"imgs/d.jpg",
+                        "type":1,
+                        "categoryName":"家常菜",
+                        "viewCount":15,
+                        "commentCount":1,
+                        "createTime":"2023/03/28 16:20:26"
+                    }
+                ]
+            }
+        },
+        methods: {
+
+        }
+    })
+</script>
+</html>
