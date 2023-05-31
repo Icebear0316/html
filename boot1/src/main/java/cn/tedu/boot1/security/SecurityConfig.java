@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //当访问需要登录认证才能访问的资源时, 没有登录的时跳转到登录页面
             http.formLogin().loginPage("/login.html");//弹出登录页面
         //设置白名单(不需要登录即可访问的资源)
-        String[] urls = {"/reg.html","/login.html",
+        String[] urls = {"/","index.html","/reg.html","/login.html",
                 "/v1/users/reg","/v1/users/login"};
         http.authorizeHttpRequests()//对请求进行授权
                 .mvcMatchers(urls) //匹配某些路径

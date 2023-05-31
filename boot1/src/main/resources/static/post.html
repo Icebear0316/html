@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h1>发微博页面</h1>
+    <input type="text" v-model="weibo.content" placeholder="说点什么">
+    <input type="button" value="发布" @click="post()">
+</div>
+<!--引入vue框架文件-->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!--引入axios框架文件-->
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+<script>
+    let v = new Vue({
+        el:"body>div",
+        data:{
+            weibo:{content:""}
+        },
+        methods:{
+            post(){
+                axios.post("/v1/weibos/insert",v.weibo).then(function (response) {
+                    if(response.data.code==1){
+                        alert("发布完成!");
+                        location.herf="/";
+                    }else {
+                        alert("登录超时,请重新登陆!");
+                        location.href="/login.html";
+                    }
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
