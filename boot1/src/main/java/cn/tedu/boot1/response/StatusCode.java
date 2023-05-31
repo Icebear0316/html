@@ -13,6 +13,7 @@ public enum StatusCode {
     LOGIN_SUCCESS(1001,"登录成功"),
     PASSWORD_ERROR(1002,"密码错误"),//对象(枚举实例)
     USERNAME_ERROR(1003,"用户名错误"),
+    USERNAME_ALREADY_EXISTS(1004,"用户名已存在"),
 
     OPERATION_SUCCESS(2001,"操作成功"),
     OPERATION_FAILED(2002,"操作失败"),
