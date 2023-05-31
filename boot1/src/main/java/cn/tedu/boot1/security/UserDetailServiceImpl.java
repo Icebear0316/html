@@ -33,9 +33,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
 //                .credentialsExpired(false) //登录凭证是否过期
 //                .authorities("权限")   //授权, 授予当前登录用户有哪些权限
 //                .build();
+        String role = username.equals("baixiong")?"ADMIN":"USER";
       // 如果用户输入的密码和数据库中查询到的密码不一致 则会抛出异常
         List<GrantedAuthority> list =
-                AuthorityUtils.createAuthorityList("权限");
+                AuthorityUtils.createAuthorityList(role);
         //创建自定义的UserDetails 并把后期需要用到的id和昵称保存到里面
         CustomUserDetails cud = new CustomUserDetails(
                 userVO.getId(),userVO.getNickname(),

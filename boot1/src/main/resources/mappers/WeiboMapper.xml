@@ -6,6 +6,13 @@
     <insert id="insert">
         INSERT INTO weibo VALUES (NULL,#{content},#{created},#{userId})
     </insert>
+    <select id="select" resultType="cn.tedu.boot1.pojo.vo.WeiboIndexVO">
+        SELECT w.id, content,nickname
+        FROM weibo w JOIN user u ON w.user_id=u.id
+    </select>
+    <delete id="deleteById">
+        DELETE FROM weibo WHERE id=#{id}
+    </delete>
 </mapper>
 
 

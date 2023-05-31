@@ -25,7 +25,7 @@
                 axios.post("/v1/weibos/insert",v.weibo).then(function (response) {
                     if(response.data.code==1){
                         alert("发布完成!");
-                        location.herf="/";
+                        location.href="/";
                     }else {
                         alert("登录超时,请重新登陆!");
                         location.href="/login.html";

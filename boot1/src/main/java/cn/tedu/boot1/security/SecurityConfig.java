@@ -3,19 +3,26 @@ package cn.tedu.boot1.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)//开启方法授权的检测
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     //配置密码加密的方式
     @Bean
     public PasswordEncoder passwordEncoder(){
         //NoOpPasswordEncoder.getInstance()获取一个无加密的实例
-        return NoOpPasswordEncoder.getInstance();
+        //return NoOpPasswordEncoder.getInstance();
+        //返回此加密的编码器之后,用户输入的密码会通过此编码器加密之后再和数据库里面的密码进行比较
+        return new BCryptPasswordEncoder();
     }
 
     @Bean  //添加此注解的目的是为了在Controller中自动装配
@@ -31,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.formLogin().loginPage("/login.html");//弹出登录页面
         //设置白名单(不需要登录即可访问的资源)
         String[] urls = {"/","index.html","/reg.html","/login.html",
-                "/v1/users/reg","/v1/users/login"};
+                "/v1/users/reg","/v1/users/login","/v1/weibos/"};
         http.authorizeHttpRequests()//对请求进行授权
                 .mvcMatchers(urls) //匹配某些路径
                 .permitAll()    //直接放行,  即不需要登录也可以访问

@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,9 @@ public class UserController {
     @Autowired(required = false)
     UserMapper mapper;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @RequestMapping("reg")
     public ResultVO reg(@RequestBody UserRegDTO userRegDTO) {
         System.out.println("userRegDTO = " + userRegDTO);
@@ -37,6 +41,9 @@ public class UserController {
         User user = new User();
         BeanUtils.copyProperties(userRegDTO, user);
         user.setCreated(new Date());
+        //对User对象里面的密码进行加密 加密之后会得到一个60个长度的密码
+        //修改字段长度(之前是50) alter table weibo change password password varchar(80);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         mapper.insert(user);
         //当给客户端响应的是Java对象时SpringMVC框架会自动将Java对象转成

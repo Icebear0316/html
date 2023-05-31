@@ -5,9 +5,52 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/reg.html">注册</a>
-<a href="/login.html">登录</a>
-<hr>
-<a href="/post.html">发微博</a>
+<div>
+    <a href="/reg.html">注册</a>
+    <a href="/login.html">登录</a>
+    <hr>
+    <a href="/post.html">发微博</a>
+
+    <div v-for="weibo in arr">
+        <h3>
+            {{weibo.nickname}}说:{{weibo.content}}
+            <a href="javascript:void(0)" @click="del(weibo.id)">删除</a>
+        </h3>
+    </div>
+</div>
+<!--引入vue框架文件-->
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+<!--引入axios框架文件-->
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+<script>
+    let v = new Vue({
+        el:"body>div",
+        data: {
+            arr:[]
+        },
+        created:function (){
+            //此方法是Vue对象初始化过程中自动调用的方法,
+            axios.get("/v1/weibos/").then(function (response) {
+                //response.data=ResultVO 里面的data是请求回来的微博列表数据
+                v.arr = response.data.data;
+            })
+        },
+        methods:{
+            del(id){
+                //发出异步的删除请求     /v1/weibos/8/delete
+                axios.post("/v1/weibos/"+id+"/delete").then(function (response){
+                    if(response.data.code==1){
+                      alert("删除成功!");
+                      location.reload();//刷新页面
+                    }else{
+                        alert("请先登录!")
+                        location.href="/login.html";
+                    }
+                })
+            }
+        }
+    })
+
+</script>
 </body>
 </html>
