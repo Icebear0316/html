@@ -5,6 +5,7 @@ package cn.tedu.boot1.exception;
 import cn.tedu.boot1.response.ResultVO;
 import cn.tedu.boot1.response.StatusCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
@@ -73,6 +74,15 @@ public class GlobalExceptionHandler {
         }
         log.warn("密码错误!");
         return new ResultVO(StatusCode.PASSWORD_ERROR);
+    }
+
+    /**
+     * 无访问时抛出的异常
+     * */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResultVO handleAccessDeniedException(AccessDeniedException e){
+        log.warn("无权访问!");
+        return new ResultVO(StatusCode.FORBIDDEN_ERROR);
     }
 
 }

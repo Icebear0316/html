@@ -10,6 +10,7 @@ import cn.tedu.boot1.response.StatusCode;
 import cn.tedu.boot1.security.CustomUserDetails;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,6 +50,8 @@ public class WeiboController {
     }
 
     @RequestMapping("/{id}/delete")
+    //PreAuthorize当前登陆的用户必须是ADMIN权限才能删除,否则会抛出异常
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResultVO delete(@PathVariable Integer id){
         System.out.println("id = " + id);
         mapper.deleteById(id);

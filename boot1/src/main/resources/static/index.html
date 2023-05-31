@@ -42,7 +42,9 @@
                     if(response.data.code==1){
                       alert("删除成功!");
                       location.reload();//刷新页面
-                    }else{
+                    }else if(response.data.code==1005){
+                        alert("当前用户无权访问!")
+                    } else{
                         alert("请先登录!")
                         location.href="/login.html";
                     }
