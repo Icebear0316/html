@@ -3,16 +3,40 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tedu.baking.mapper.UserMapper">
-    <select id="selectByUserName">
-        SELECT id,password,nick_name,is_admin,img_url
+    <select id="selectByUserName" resultType="cn.tedu.baking.pojo.vo.UserVO">
+        SELECT id, password, nick_name, is_admin, img_url
         FROM t_user
-        WHERE user_name=#{username}
+        WHERE user_name = #{userName}
     </select>
     <insert id="insert">
-        INSERT INTO t_user VALUES (NULL, #{userName}, #{nickName},
-                                   #{password}, #{isAdmin}, #{createTime}, #{imgUrl})
+        INSERT INTO t_user
+        VALUES (NULL, #{userName}, #{nickName},
+                #{password}, #{isAdmin}, #{createTime}, #{imgUrl})
     </insert>
-
+    <update id="update">
+        UPDATE t_user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="isAdmin != null">
+                is_admin = #{isAdmin},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="imgUrl != null">
+                img_url = #{imgUrl},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>
 
 

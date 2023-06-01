@@ -3,6 +3,7 @@ package cn.tedu.baking.controller;
 import cn.tedu.baking.mapper.UserMapper;
 import cn.tedu.baking.pojo.dto.UserLoginDTO;
 import cn.tedu.baking.pojo.dto.UserRegDTO;
+import cn.tedu.baking.pojo.dto.UserUpdateDTO;
 import cn.tedu.baking.pojo.entity.User;
 import cn.tedu.baking.pojo.vo.UserVO;
 import cn.tedu.baking.response.ResultVO;
@@ -67,5 +68,14 @@ public class UserController {
     public void logout(){
         //从Security框架中删除认证数据
         SecurityContextHolder.clearContext();
+    }
+
+    @RequestMapping("update")
+    public ResultVO update(@RequestBody UserUpdateDTO userUpdateDTO){
+        System.out.println("userUpdateDTO = " + userUpdateDTO);
+        User user = new User();
+        BeanUtils.copyProperties(userUpdateDTO,user);
+        mapper.update(user);
+        return ResultVO.ok();
     }
 }

@@ -11,5 +11,6 @@ public interface UserMapper {
 
     int insert(User user);
 
-    UserVO selectByUsername(String username);
+    void update(User user);
+
 }

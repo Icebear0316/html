@@ -39,6 +39,8 @@
                     <el-card style="height: 500px">
                         <el-form label-width="100px">
                             <el-form-item label="头像">
+                                <!-- /imgs/icon.png  -->
+                                <!--客户端只能访问静态资源的文件夹,c:/files不是 所以要将它变为静态资源文件夹-->
                                 <img :src="user.imgUrl"
                                      style="width: 145px;height: 145px;
                             border-radius: 10px;float: left">
@@ -49,6 +51,7 @@
                                         name="file"
                                         limit="1"
                                         list-type="picture-card"
+                                        :on-success="handleSuccess"
                                         :on-preview="handlePictureCardPreview"
                                         :on-remove="handleRemove">
                                     <i class="el-icon-plus"></i>
@@ -134,16 +137,46 @@
 
                 dialogImageUrl: '',
                 dialogVisible: false,
-                user:localStorage.user?JSON.parse(localStorage.user):null,
-                nickName:""
+                user:localStorage.user ? JSON.parse(localStorage.user) : null,
+                url:""//准备这个变量来接受
             }
         },
         methods: {
+            handleSuccess(response,file,fileList){//当上传成功时此方法会执行
+                //response==file.response 代表服务器响应的ResultVO
+                v.url = response.data;
+            },
             save(){
+                //v.user.nickname根据客户修改而更改昵称
+                let u = {id:v.user.id,nickName:v.user.nickName };
+                // 用来解决只修改昵称不修改头像
+                if(v.url!=""){//选择了图片
+                    u.imgUrl = v.url;
+                }
+                console.log(u);
+                //发请求吧新的昵称图片路径保存到数据库中
+                axios.post("/v1/users/update",u).then(function (response) {
+                    //修改成功后服务器响应回最新的用户信息,更新localStrage里面的user
+                    if(response.data.code==1){
+                        if(v.url!=""){
+                            v.user.imgUrl = v.url;//把图片路径复制给当前登陆的用户对象
+                        }
+                        //把最新的用户信息保存到localStorage里面
+                        localStorage.user = JSON.stringify(v.user);
+                        location.reload();//刷新页面
+                    }
+                })
+
 
             },
             handleRemove(file, fileList) {
+                v.url="";//代表没有选择图片
                 console.log(file, fileList);
+                //发出删除文件的请求 file.response 上传成功时服务器响应的内容
+                console.log(file.response);
+                axios.get("/v1/upload/remove?url=" + file.response.data).then(function () {
+                    console.log("服务器文件删除完成!");
+                })
             },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
