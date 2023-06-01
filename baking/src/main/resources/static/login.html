@@ -103,6 +103,8 @@
                 axios.post("/v1/users/login",v.user).then(function (response) {
                     if (response.data.code==1){
                         location.href="/";
+                        //把装着登陆成功用户信信息的对象保存到localStroage
+                        localStorage.user = response.data.data;
                     }else{
                         v.$message.error(response.data.msg);
                     }

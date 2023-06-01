@@ -59,7 +59,7 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(result);
         //代码执行到这里时代表登录成功!如果登录失败Security框架会抛出异常
 
-
-        return ResultVO.ok();
+        //result.getPrincipal()得到登陆成功的CustomUserDetails
+        return new ResultVO(StatusCode.SUCCESS,result.getPrincipal());
     }
 }
