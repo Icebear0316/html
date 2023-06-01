@@ -39,12 +39,15 @@
                     <el-card style="height: 500px">
                         <el-form label-width="100px">
                             <el-form-item label="头像">
-                                <img src="imgs/head.jpg"
+                                <img :src="user.imgUrl"
                                      style="width: 145px;height: 145px;
                             border-radius: 10px;float: left">
                                 <!--**********上传组件开始***********-->
+                                <!--action设置请求地址  limit设置上唇文件的数量  name设置上传文件的数量-->
                                 <el-upload style="float: left"
-                                        action="https://jsonplaceholder.typicode.com/posts/"
+                                        action="/v1/upload"
+                                        name="file"
+                                        limit="1"
                                         list-type="picture-card"
                                         :on-preview="handlePictureCardPreview"
                                         :on-remove="handleRemove">
@@ -56,15 +59,15 @@
                                 <!--**********上传组件结束***********-->
                             </el-form-item>
                             <el-form-item label="昵称">
-                                <el-input placeholder="请输入昵称"
+                                <el-input placeholder="请输入昵称" v-model="user.nickName"
                                           style="width: 200px"></el-input>
                             </el-form-item>
                             <el-form-item label="用户名">
-                                <el-input disabled value="tom"
+                                <el-input disabled :value="user.username"
                                           style="width: 200px"></el-input>
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="primary">保存信息</el-button>
+                                <el-button type="primary" @click="save()">保存信息</el-button>
                             </el-form-item>
                         </el-form>
                     </el-card>
@@ -128,45 +131,17 @@
         el: '#app',
         data: function () {
             return {
-                recipeArr:[
-                    {
-                        "id": 27,
-                        "title": "家常面包",
-                        "imgUrl": "imgs/a.jpg",
-                        "categoryName": "面包",
-                        "nickName": "汤姆",
-                        "userImgUrl": "imgs/head.jpg"
-                    },
-                    {
-                        "id": 18,
-                        "title": "爆浆抹茶甜甜圈面包，自带幸福感的小甜甜",
-                        "imgUrl": "imgs/b.jpg",
-                        "categoryName": "家常菜",
-                        "nickName": "汤姆",
-                        "userImgUrl": "imgs/head.jpg"
-                    },
-                    {
-                        "id": 17,
-                        "title": "心形火龙果椰蓉面包,任谁都抗拒不了",
-                        "imgUrl": "imgs/c.jpg",
-                        "categoryName": "小食",
-                        "nickName": "汤姆",
-                        "userImgUrl": "imgs/head.jpg"
-                    },
-                    {
-                        "id": 16,
-                        "title": "蔓越莓绿豆糕，味道还不错值得一试!",
-                        "imgUrl": "imgs/d.jpg",
-                        "categoryName": "面包",
-                        "nickName": "汤姆",
-                        "userImgUrl": "imgs/head.jpg"
-                    },
-                ],
+
                 dialogImageUrl: '',
-                dialogVisible: false
+                dialogVisible: false,
+                user:localStorage.user?JSON.parse(localStorage.user):null,
+                nickName:""
             }
         },
         methods: {
+            save(){
+
+            },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
@@ -174,6 +149,9 @@
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             }
+        },
+        created:function () {
+
         }
     })
 </script>

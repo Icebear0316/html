@@ -60,6 +60,12 @@ public class UserController {
         //代码执行到这里时代表登录成功!如果登录失败Security框架会抛出异常
 
         //result.getPrincipal()得到登陆成功的CustomUserDetails
-        return new ResultVO(StatusCode.SUCCESS,result.getPrincipal());
+        return ResultVO.ok(result.getPrincipal());
+    }
+
+    @RequestMapping("logout")
+    public void logout(){
+        //从Security框架中删除认证数据
+        SecurityContextHolder.clearContext();
     }
 }

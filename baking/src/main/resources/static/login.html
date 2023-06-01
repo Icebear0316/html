@@ -102,9 +102,11 @@
             login(){
                 axios.post("/v1/users/login",v.user).then(function (response) {
                     if (response.data.code==1){
-                        location.href="/";
+                        console.log(response.data.data);
+
                         //把装着登陆成功用户信信息的对象保存到localStroage
-                        localStorage.user = response.data.data;
+                        localStorage.user = JSON.stringify(response.data.data);
+                        location.href="/";
                     }else{
                         v.$message.error(response.data.msg);
                     }
