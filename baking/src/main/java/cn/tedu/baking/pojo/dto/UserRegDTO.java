@@ -7,5 +7,5 @@ import lombok.Data;
 public class UserRegDTO {
     private String userName;
     private String password;
-    private String passWord;
+    private String nickName;
 }
