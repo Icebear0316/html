@@ -1,6 +1,7 @@
 package cn.tedu.baking.controller;
 
 import cn.tedu.baking.mapper.UserMapper;
+import cn.tedu.baking.pojo.dto.UserLoginDTO;
 import cn.tedu.baking.pojo.dto.UserRegDTO;
 import cn.tedu.baking.pojo.entity.User;
 import cn.tedu.baking.pojo.vo.UserVO;
@@ -33,8 +34,10 @@ public class UserController {
             user.setImgUrl("/imgs/icon.png");
             mapper.insert(user);
             return ResultVO.ok();
+    }
 
-
-
+    @RequestMapping("login")
+    public ResultVO login(@RequestBody UserLoginDTO userLoginDTO){
+        return ResultVO.ok();
     }
 }

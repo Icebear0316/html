@@ -30,42 +30,7 @@
 <body>
 <div id="app">
     <el-container>
-        <el-header height="80px">
-            <div class="center">
-                <el-row gutter="20">
-                    <el-col span="6">
-                        <img src="imgs/icon.png" width="196" height="65">
-                    </el-col>
-                    <el-col span="10">
-                        <el-menu mode="horizontal" active-text-color="orange">
-                            <el-menu-item index="0">首页</el-menu-item>
-                            <el-menu-item index="1">食谱</el-menu-item>
-                            <el-menu-item index="2">视频</el-menu-item>
-                            <el-menu-item index="3">资讯</el-menu-item>
-                        </el-menu>
-                    </el-col>
-                    <el-col span="6">
-                        <el-input style="margin-top: 15px" placeholder="请输入搜索的关键字">
-                            <el-button slot="append" icon="el-icon-search"></el-button>
-                        </el-input>
-                    </el-col>
-                    <el-col span="2">
-                        <el-popover
-                                placement="top-start"
-                                title="欢迎来到烘焙坊!"
-                                width="200"
-                                trigger="hover">
-                            <div slot="reference">
-                                <i class="el-icon-user"
-                                   style="font-size: 30px;position: relative;top: 20px"></i>
-                            </div>
-                            <el-button type="info">注册</el-button>
-                            <el-button style="background-color: orange">登录</el-button>
-                        </el-popover>
-                    </el-col>
-                </el-row>
-            </div>
-        </el-header>
+       <my-header></my-header>
         <el-main class="center" >
             <el-row gutter="20">
                 <el-col span="18">
@@ -218,7 +183,8 @@
 <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
 <!--引入Axios-->
 <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
-
+<!--引入自己的js文件-->
+<script src="js/my-header.js"></script>
 <script>
     let v = new Vue({
         el: '#app',

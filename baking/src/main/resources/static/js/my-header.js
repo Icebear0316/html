@@ -1,11 +1,9 @@
-Vue.componet('my-header',{
-    data:function (){
+Vue.component('my-header',{
+    data:function () {
         return{
-
         }
     },
     methods:{
-
     },
     created:function () {
     },
@@ -14,7 +12,10 @@ Vue.componet('my-header',{
             <div class="center">
                 <el-row gutter="20">
                     <el-col span="6">
-                        <img src="imgs/icon.png" width="196" height="65">
+                        <a href="/">
+                         <img src="imgs/icon.png" width="196" height="65">
+                        </a>
+                        
                     </el-col>
                     <el-col span="10">
                         <el-menu mode="horizontal" active-text-color="orange">
