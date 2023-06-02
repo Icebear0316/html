@@ -1,4 +1,4 @@
-package cn.tedu.boot1.controller;
+package cn.tedu.baking.controller;
 
 import cn.tedu.boot1.mapper.UserMapper;
 import cn.tedu.boot1.pojo.dto.UserLoginDTO;
