@@ -40,6 +40,7 @@ public class UploadController {
         }
         //把图片保存进文件夹  c:/files/2023/06/1/xxxx.jpg  异常抛出
         file.transferTo(new File(dirPath+dataPath+fileName));
+
         //把图片路径     /2023/06/1/xxxx.jpg   响应给客户端
         return ResultVO.ok(dataPath+fileName);
     }
