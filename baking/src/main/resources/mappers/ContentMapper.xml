@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.baking.mapper.ContentMapper">
+    <insert id="insert">
+        INSERT INTO t_content
+        VALUES (NULL, #{title}, #{imgUrl}, #{videoUrl},
+                #{content}, #{type}, 0, 0, #{createBy},
+                #{createTime}, null, null,
+                #{brief}, #{categoryId})
+    </insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
