@@ -42,7 +42,7 @@
                 <el-col span="20">
                     <el-card>
                         <!--标签页卡开始-->
-                        <el-tabs v-model="type"  type="card" @tab-click="handleClick">
+                        <el-tabs v-model="c.type"  type="card" @tab-click="handleClick">
                             <el-tab-pane label="食谱" name="1"></el-tab-pane>
                             <el-tab-pane label="视频" name="2"></el-tab-pane>
                             <el-tab-pane label="资讯" name="3"></el-tab-pane>
@@ -51,20 +51,23 @@
                         <!--发布文章表单开始-->
                         <el-form label-width="100px">
                             <el-form-item label="文章标题">
-                                <el-input style="width: 200px"
+                                <el-input style="width: 200px" v-model="c.title"
                                         placeholder="请输入标题"></el-input>
                             </el-form-item>
                             <el-form-item label="文章分类">
-                                <el-select>
-                                    <el-option label="面包" value="1"></el-option>
-                                    <el-option label="家常菜" value="2"></el-option>
-                                    <el-option label="小食" value="3"></el-option>
+                                <el-select v-model="c.categoryId">
+                                    <el-option v-for="cat in categoryArr"
+                                                :label="cat.name" :value="cat.id"></el-option>
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="封面">
                                 <el-upload
-                                        action="https://jsonplaceholder.typicode.com/posts/"
+                                        action="/v1/upload"
+                                        name="file"
+                                        limit="1"
+
                                         list-type="picture-card"
+                                        :on-success="handleSuccess"
                                         :on-preview="handlePictureCardPreview"
                                         :on-remove="handleRemove">
                                     <i class="el-icon-plus"></i>
@@ -73,14 +76,27 @@
                                     <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
                             </el-form-item>
-                            <el-form-item label="文章内容">
+                            <el-form-item v-show="c.type==2" label="文章视频">
+                                <el-upload style="width: 300px"
+                                           action="/v1/upload"
+                                           accept="video/mp4,video/x-m4v,video/*"
+                                           name="file"
+                                           limit="1"
+                                           :on-success="handleSuccess"
+                                           :on-preview="handlePictureCardPreview"
+                                           :on-remove="handleRemove">
+                                    <el-button type="primary">点击上传</el-button>
+                                    <div>只能上传mp4文件,且不超过100MB</div>
+                                </el-upload>
+                            </el-form-item>
+                            <el-form-item v-show="c.type!=2" label="文章内容">
                                 <div style="border: 1px solid #ccc">
                                     <div id="toolbar-container" style="border-bottom: 1px solid #ccc;"><!-- 工具栏 --></div>
                                     <div id="editor-container" style="height: 300px;"><!-- 编辑器 --></div>
                                 </div>
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="primary">发布</el-button>
+                                <el-button type="primary" @click="post()">发布</el-button>
                             </el-form-item>
 
                         </el-form>
@@ -151,22 +167,91 @@
         el: '#app',
         data: function () {
             return {
-                type:'1',
+                /*type:'1',*/
                 dialogImageUrl: '',
-                dialogVisible: false
+                dialogVisible: false,
+                categoryArr:[],
+                c:{
+                    title:"", imgUrl:"",content:"",videoUrl:"",categoryId:"",
+                    type: "1"
+                }
+
             }
         },
         methods: {
+            post(){
+                if(v.c.type==2&&v.c.videoUrl==""){
+                    v.$message.error("请选择视频文件!")
+                    return;
+                }
+                if(v.c.imgUrl==""){
+                    v.$message.error("请选择一张封面")
+                    return;
+                }
+                if(v.c.categoryId==null||v.c.categoryId==""){
+                    v.$message.error("请选择分类!")
+                    return;
+                }
+                //设置作者ID
+                v.c.createBy = JSON.parse(localStorage.user).id;
+                //设置摘要  slice(起始位置,结束位置)
+                v.c.brief = v.c.content.slice(0,50);
+                //发出请求
+                axios.post("/v1/contents/add-new",v.c).then(function (response) {
+                    if(response.data.code==1){
+                        v.$message.success("发布完成!");
+                        location.href="/articleManagement.html";
+                    }
+                })
+            },
             handleClick(tab, event) {
-                console.log(tab, event);
+                //清空富文本编辑器里面的内容
+                editor.setHtml("");
+
+                axios.get("v1/categories/"+v.c.type+"/sub").then(function (response) {
+                    if(response.data.code==1){
+                        v.categoryArr = response.data.data;
+                        v.c.categoryId=null;
+                    }
+                })
+            },
+            handleSuccess(response, file, fileList) {
+                console.log(file);
+                if(file.raw.type.includes("image")){
+                    //把上传图片完成之后  得到的图片路径用变量记录
+                    v.c.imgUrl = response.data;
+                }else {
+                    v.c.videoUrl = response.data;
+                }
+                //把上传图片完成之后  得到的图片路径用变量记录
+                v.c.imgUrl = response.data;
             },
             handleRemove(file, fileList) {
-                console.log(file, fileList);
+                //判断删除的是图片还是视频
+                if(file.raw.type.includes("image")){
+                    v.c.imgUrl="";
+                }else {
+                    v.c.videoUrl = "";
+                }
+
+                //发出删除文件的请求 file.response 上传成功时服务器响应的内容
+                console.log(file.response);
+                axios.get("/v1/upload/remove?url=" + file.response.data).then(function () {
+                    console.log("服务器文件删除完成!");
+                })
+                /*console.log(file, fileList);*/
             },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             }
+        },
+        created:function () {
+            axios.get("v1/categories/1/sub").then(function (response) {
+                if(response.data.code==1){
+                    v.categoryArr = response.data.data;
+                }
+            })
         }
     })
 
@@ -178,6 +263,8 @@
         onChange(editor) {
             const html = editor.getHtml()
             console.log('editor content', html)
+            //当富文本编辑器里面的值发生改变时 把该值付给内容对象
+            v.c.content = html;
         }
     }
     const editor = createEditor({

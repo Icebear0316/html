@@ -45,7 +45,7 @@
                             <el-tab-pane label="资讯" name="3"></el-tab-pane>
                         </el-tabs>
                         <!--标签页卡结束-->
-                        <el-button type="primary">发帖</el-button>
+                        <el-button type="primary" @click="location.href='/postArticle.html'">发帖</el-button>
                         <!--内容列表开始-->
                         <el-table :data="contentArr" border>
                             <el-table-column label="标题" width="150px"
