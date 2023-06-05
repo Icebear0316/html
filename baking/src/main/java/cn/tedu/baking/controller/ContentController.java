@@ -31,13 +31,19 @@ public class ContentController {
      * @return
      * */
     @RequestMapping("add-new")
-    public ResultVO addNew(@RequestBody ContentDTO contentDTO){
+    public ResultVO addNew(@RequestBody ContentDTO contentDTO,
+                           @AuthenticationPrincipal CustomUserDetails userDetails){
         System.out.println("contentDTO = " + contentDTO);
         Content content = new Content();
         BeanUtils.copyProperties(contentDTO,content);
-        content.setCreateTime(new Date());
-
-        mapper.insert(content);
+        if (contentDTO.getId()==null){//添加
+            content.setCreateTime(new Date());
+            mapper.insert(content);
+        }else{//修改
+            content.setUpdateTime(new Date());
+            content.setUpdateBy(userDetails.getId());//设置修改人为当前登陆的用户
+            mapper.update(content);
+        }
         return ResultVO.ok();
     }
 

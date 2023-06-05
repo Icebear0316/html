@@ -15,4 +15,6 @@ public interface ContentMapper {
     List<ContentManagementVO> selectByType(Integer type,Long id);
 
     ContentEditVO selectByIdForEdit(Long id);
+
+    void update(Content content);
 }

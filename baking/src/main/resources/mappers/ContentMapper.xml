@@ -22,6 +22,23 @@
         FROM t_content
         WHERE id=#{id}
     </select>
+    <update id="update">
+        UPDATE t_content
+        <set>
+            <if test="title!=null">title=#{title},</if>
+            <if test="imgUrl!=null">img_url=#{imgUrl},</if>
+            <if test="brief!=null">brief=#{brief},</if>
+            <if test="videoUrl!=null">video_url=#{videoUrl},</if>
+            <if test="type!=null">type=#{type},</if>
+            <if test="categoryId!=null">category_id=#{categoryId},</if>
+            <if test="viewCount!=null">view_count=#{viewCount},</if>
+            <if test="commentCount!=null">comment_count=#{commentCount},</if>
+            <if test="updateBy!=null">update_by=#{updateBy},</if>
+            <if test="updateTime!=null">update_time=#{updateTime},</if>
+            <if test="content!=null">content=#{content}</if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>
 
 

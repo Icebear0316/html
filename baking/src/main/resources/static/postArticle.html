@@ -43,9 +43,9 @@
                     <el-card>
                         <!--标签页卡开始-->
                         <el-tabs v-model="c.type"  type="card" @tab-click="handleClick">
-                            <el-tab-pane label="食谱" name="1"></el-tab-pane>
-                            <el-tab-pane label="视频" name="2"></el-tab-pane>
-                            <el-tab-pane label="资讯" name="3"></el-tab-pane>
+                            <el-tab-pane :disabled="isEdit" label="食谱" name="1"></el-tab-pane>
+                            <el-tab-pane :disabled="isEdit" label="视频" name="2"></el-tab-pane>
+                            <el-tab-pane :disabled="isEdit" label="资讯" name="3"></el-tab-pane>
                         </el-tabs>
                         <!--标签页卡结束-->
                         <!--发布文章表单开始-->
@@ -61,6 +61,8 @@
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="封面">
+                                <img v-if="isEdit" :src="oldImgUrl"
+                                style="width: 145px;height: 145px;">
                                 <el-upload
                                         action="/v1/upload"
                                         name="file"
@@ -77,6 +79,10 @@
                                 </el-dialog>
                             </el-form-item>
                             <el-form-item v-show="c.type==2" label="文章视频">
+                                <video v-if="isEdit" :src="c.videoUrl"
+                                       muted autoplay controls style="width: 200px; height: 150px;">
+                                    您的浏览器不支持播放此视频.
+                                </video>
                                 <el-upload style="width: 300px"
                                            action="/v1/upload"
                                            accept="video/mp4,video/x-m4v,video/*"
@@ -96,7 +102,7 @@
                                 </div>
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="primary" @click="post()">发布</el-button>
+                                <el-button type="primary" @click="post()">{{isEdit?"修改":"发布"}}</el-button>
                             </el-form-item>
 
                         </el-form>
@@ -167,7 +173,8 @@
         el: '#app',
         data: function () {
             return {
-                /*type:'1',*/
+                oldImgUrl:"",
+                isEdit:false,
                 dialogImageUrl: '',
                 dialogVisible: false,
                 categoryArr:[],
@@ -244,6 +251,13 @@
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
+            },
+            loadCategories(type){
+                axios.get("/v1/categories/"+type+"/sub").then(function (response) {
+                    if(response.data.code==1){
+                        v.categoryArr = response.data.data;
+                    }
+                })
             }
         },
         created:function () {
@@ -251,20 +265,27 @@
             //location.search得到地址栏中?及后面的内容   ?id=25
             // "abc".includes("a")也是判断是否包含
             if(location.search.indexOf("id")!=-1){//包含id 代表编辑
+                this.isEdit = true;
                 let id = location.search.split("=")[1];
+                //通过地址栏中id
                 axios.get("/v1/contents/"+id+"/edit").then(function (response){
                     if(response.data.code==1){
                         v.c = response.data.data;
                         //更新富文本编辑器内容
                         editor.setHtml(v.c.content);
+                        //给单独的变量赋值,让页面中的图片标签和oldImgUrl绑定
+                        v.oldImgUrl = v.c.imgUrl;
+                        //请求当前编辑内容类型下的所有分类
+                        //此处是发完请求回调回来的方法,此处的this和v不是同一对象
+                        // this.loadCategories(v.c.type);
+                        v.loadCategories(v.c.type);
                     }
                 })
+            }else   {//代表发布
+                //请求文章类型下的所有分类
+                this.loadCategories(1);
             }
-            axios.get("/v1/categories/1/sub").then(function (response) {
-                if(response.data.code==1){
-                    v.categoryArr = response.data.data;
-                }
-            })
+
         }
     })
 
