@@ -147,6 +147,9 @@
             }
         },
         methods: {
+            handleEdit(i,content){
+                location.href="/postArticle.html/id="+content.id;
+            },
             handleClick(tab, event) {
                 console.log(v.type);
                 //this不是所有场景都能取代v ,只有在created方法中,this代表的是Vue对象
