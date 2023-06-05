@@ -11,18 +11,23 @@ import cn.tedu.baking.response.StatusCode;
 import cn.tedu.baking.security.CustomUserDetails;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/contents/")
 public class ContentController {
+    @Value("${filePath}")
+    private String filePath;
+
     @Autowired
     ContentMapper mapper;
 
@@ -44,6 +49,7 @@ public class ContentController {
             content.setUpdateBy(userDetails.getId());//设置修改人为当前登陆的用户
             mapper.update(content);
         }
+
         return ResultVO.ok();
     }
 
@@ -55,15 +61,31 @@ public class ContentController {
         if (userDetails==null){
             return new ResultVO(StatusCode.NOT_LOGIN);
         }
+
         List<ContentManagementVO> list =
                 mapper.selectByType(type,userDetails.getId());
 
         return ResultVO.ok(list);
     }
-
     @RequestMapping("/{id}/edit")
     public ResultVO getEdit(@PathVariable Long id){
+
         ContentEditVO contentEditVO = mapper.selectByIdForEdit(id);
         return ResultVO.ok(contentEditVO);
+    }
+
+    @RequestMapping("/{id}/delete")
+    public ResultVO delete(@PathVariable Long id){
+        //得到封面的图片路径 然后删除文件
+        ContentEditVO contentEditVO = mapper.selectByIdForEdit(id);
+        new File("c:/files"+contentEditVO.getImgUrl()).delete();
+        //如果内容为视频类型 则得到视频路径并删除
+        if (contentEditVO.getType()==2){
+            new File(filePath+contentEditVO.getVideoUrl()).delete();
+        }
+        //删除数据库里面的数据
+        mapper.deleteById(id);
+        return ResultVO.ok();
+
     }
 }

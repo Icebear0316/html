@@ -17,4 +17,6 @@ public interface ContentMapper {
     ContentEditVO selectByIdForEdit(Long id);
 
     void update(Content content);
+
+    void deleteById(Long id);
 }

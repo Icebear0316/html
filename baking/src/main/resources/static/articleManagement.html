@@ -45,7 +45,7 @@
                             <el-tab-pane label="资讯" name="3"></el-tab-pane>
                         </el-tabs>
                         <!--标签页卡结束-->
-                        <el-button type="primary" @click="location.href='/postArticle.html'">发帖</el-button>
+                        <el-button type="primary" @click="location.href='/postArticle.html?type='+v.type">发帖</el-button>
                         <!--内容列表开始-->
                         <el-table :data="contentArr" border>
                             <el-table-column label="标题" width="150px"
@@ -56,7 +56,7 @@
                                 </template>
 
                             </el-table-column>
-                            <el-table-column label="摘要" width="300px" align="center">
+                            <el-table-column v-if="type!=2" label="摘要" width="300px" align="center">
                                 <template slot-scope="scope">
                                     <!--scope.row代表当前行对应的数组里面的对象-->
                                     <div v-html="scope.row.brief"></div>
@@ -147,22 +147,34 @@
             }
         },
         methods: {
+            handleDelete(i,content){
+                if (confirm("您确定删除此内容吗?")){
+                    //发出删除请求
+                    axios.post("/v1/contents/"+content.id+"/delete").then(function (response) {
+                        if (response.data.code==1){
+                            v.$message.success("删除完成!");
+                            v.contentArr.splice(i,1);//删除页面中的内容
+                        }
+                    })
+                }
+
+            },
             handleEdit(i,content){
                 location.href="/postArticle.html?id="+content.id;
             },
             handleClick(tab, event) {
                 console.log(v.type);
-                //this不是所有场景都能取代v ,只有在created方法中,this代表的是Vue对象
-                //其他位置this代表的是window对象
+                //this不是所有场景都能取代v, 只有在created方法中,this代表的是Vue对象
+                //其它位置this代表的是window对象
                 this.loadList(v.type);
             },
             //方法loadList
             loadList(type){
                 //发出获取内容的请求
                 axios.get("/v1/contents/"+type+"/management").then(function (response) {
-                    if(response.data.code==1){
+                    if (response.data.code==1){
                         v.contentArr = response.data.data;
-                    }else {
+                    }else{
                         alert("请先登录!");
                         location.href = "/login.html";
                     }
@@ -170,11 +182,13 @@
             }
         },
         created:function () {
-            //created方法是在Vue对象初始化过程中调用的方法，在方法中不能直接调用V，否则会报错
-            // 需要访闻v里面的内容时，使用this代音
-            this.loadList(this.type);//括号中也可以直接写1
-        }
+            //created方法是在Vue对象初始化过程中调用的方法,在方法中不能直接调用v,否则会报错
+            //需要访问v里面的内容时,使用this代替
+            this.loadList(this.type);
 
+
+
+        }
     })
 </script>
 </html>

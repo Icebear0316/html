@@ -57,12 +57,12 @@
                             <el-form-item label="文章分类">
                                 <el-select v-model="c.categoryId">
                                     <el-option v-for="cat in categoryArr"
-                                                :label="cat.name" :value="cat.id"></el-option>
+                                               :label="cat.name" :value="cat.id"></el-option>
                                 </el-select>
                             </el-form-item>
                             <el-form-item label="封面">
                                 <img v-if="isEdit" :src="oldImgUrl"
-                                style="width: 145px;height: 145px;">
+                                     style="width: 145px;height: 145px;">
                                 <el-upload
                                         action="/v1/upload"
                                         name="file"
@@ -180,32 +180,32 @@
                 categoryArr:[],
                 c:{
                     title:"", imgUrl:"",content:"",videoUrl:"",categoryId:"",
-                    type: "1"
+                    type:"1"
                 }
 
             }
         },
         methods: {
             post(){
-                if(v.c.type==2&&v.c.videoUrl==""){
-                    v.$message.error("请选择视频文件!")
+                if (v.c.type==2&&v.c.videoUrl==""){
+                    v.$message.error("请选择视频文件!");
                     return;
                 }
-                if(v.c.imgUrl==""){
-                    v.$message.error("请选择一张封面")
-                    return;
-                }
-                if(v.c.categoryId==null||v.c.categoryId==""){
-                    v.$message.error("请选择分类!")
-                    return;
-                }
-                //设置作者ID
-                v.c.createBy = JSON.parse(localStorage.user).id;
-                //设置摘要  slice(起始位置,结束位置)
-                v.c.brief = v.c.content.slice(0,50);
-                //发出请求
+              if (v.c.imgUrl==""){
+                  v.$message.error("请选择一张封面图!");
+                  return;
+              }
+              if (v.c.categoryId==null||v.c.categoryId==""){
+                  v.$message.error("请选择分类!");
+                  return;
+              }
+              //设置作者id
+              v.c.createBy = JSON.parse(localStorage.user).id;
+              //设置摘要  slice(起始位置,结束位置)
+              v.c.brief = editor.getText().slice(0,50);
+              //发出请求
                 axios.post("/v1/contents/add-new",v.c).then(function (response) {
-                    if(response.data.code==1){
+                    if (response.data.code==1){
                         v.$message.success("发布完成!");
                         location.href="/articleManagement.html";
                     }
@@ -215,8 +215,8 @@
                 //清空富文本编辑器里面的内容
                 editor.setHtml("");
 
-                axios.get("v1/categories/"+v.c.type+"/sub").then(function (response) {
-                    if(response.data.code==1){
+                axios.get("/v1/categories/"+v.c.type+"/sub").then(function (response) {
+                    if (response.data.code==1){
                         v.categoryArr = response.data.data;
                         v.c.categoryId=null;
                     }
@@ -224,10 +224,10 @@
             },
             handleSuccess(response, file, fileList) {
                 console.log(file);
-                if(file.raw.type.includes("image")){
-                    //把上传图片完成之后  得到的图片路径用变量记录
+                if (file.raw.type.includes("image")){
+                    //把上传图片完成之后 得到的图片路径用变量记录
                     v.c.imgUrl = response.data;
-                }else {
+                }else{
                     v.c.videoUrl = response.data;
                 }
                 //把上传图片完成之后  得到的图片路径用变量记录
@@ -235,26 +235,25 @@
             },
             handleRemove(file, fileList) {
                 //判断删除的是图片还是视频
-                if(file.raw.type.includes("image")){
+                if (file.raw.type.includes("image")){
                     v.c.imgUrl="";
-                }else {
+                }else{
                     v.c.videoUrl = "";
                 }
-
-                //发出删除文件的请求 file.response 上传成功时服务器响应的内容
+                //发出删除文件的请求   file.response上传成功时服务器响应的内容ResultVO
                 console.log(file.response);
                 axios.get("/v1/upload/remove?url=" + file.response.data).then(function () {
                     console.log("服务器文件删除完成!");
                 })
-                /*console.log(file, fileList);*/
             },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },
             loadCategories(type){
+
                 axios.get("/v1/categories/"+type+"/sub").then(function (response) {
-                    if(response.data.code==1){
+                    if (response.data.code==1){
                         v.categoryArr = response.data.data;
                     }
                 })
@@ -264,26 +263,29 @@
             //判断此时页面的作用是添加还是修改
             //location.search得到地址栏中?及后面的内容   ?id=25
             // "abc".includes("a")也是判断是否包含
-            if(location.search.indexOf("id")!=-1){//包含id 代表编辑
+            if (location.search.indexOf("id")!=-1){//包含id 代表编辑
                 this.isEdit = true;
                 let id = location.search.split("=")[1];
-                //通过地址栏中id
-                axios.get("/v1/contents/"+id+"/edit").then(function (response){
-                    if(response.data.code==1){
+                //通过地址栏中id请求内容详情
+                axios.get("/v1/contents/"+id+"/edit").then(function (response) {
+                    if (response.data.code==1){
                         v.c = response.data.data;
                         //更新富文本编辑器内容
                         editor.setHtml(v.c.content);
                         //给单独的变量赋值,让页面中的图片标签和oldImgUrl绑定
                         v.oldImgUrl = v.c.imgUrl;
+
                         //请求当前编辑内容类型下的所有分类
-                        //此处是发完请求回调回来的方法,此处的this和v不是同一对象
-                        // this.loadCategories(v.c.type);
+                        //此处是发完请求回调回来的方法, 此处的this和v不是同一个对象
+                        //this代表的window对象,访问Vue对象中的方法时使用v
                         v.loadCategories(v.c.type);
                     }
                 })
-            }else   {//代表发布
-                //请求文章类型下的所有分类
-                this.loadCategories(1);
+            }else{//代表发布
+                //如果是发布的话, 地址栏中会包含type    ?type=3
+                this.c.type = location.search.split("=")[1];
+                //请求type对应的所有分类
+                this.loadCategories(this.c.type);
             }
 
         }
@@ -297,7 +299,7 @@
         onChange(editor) {
             const html = editor.getHtml();
             console.log('editor content', html);
-            //当富文本编辑器里面的值发生改变时 把该值付给内容对象
+            //当富文本编辑器里面的值发生改变时 把值赋值给内容对象
             v.c.content = html;
         }
     }
