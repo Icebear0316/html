@@ -4,6 +4,7 @@ package cn.tedu.baking.controller;
 import cn.tedu.baking.mapper.ContentMapper;
 import cn.tedu.baking.pojo.dto.ContentDTO;
 import cn.tedu.baking.pojo.entity.Content;
+import cn.tedu.baking.pojo.vo.ContentEditVO;
 import cn.tedu.baking.pojo.vo.ContentManagementVO;
 import cn.tedu.baking.response.ResultVO;
 import cn.tedu.baking.response.StatusCode;
@@ -45,12 +46,18 @@ public class ContentController {
                                @AuthenticationPrincipal CustomUserDetails userDetails){
         System.out.println("type = " + type + ", userDetails = " + userDetails);
         //判断是否登录了
-        if(userDetails==null){
+        if (userDetails==null){
             return new ResultVO(StatusCode.NOT_LOGIN);
         }
         List<ContentManagementVO> list =
                 mapper.selectByType(type,userDetails.getId());
 
         return ResultVO.ok(list);
+    }
+
+    @RequestMapping("/{id}/edit")
+    public ResultVO getEdit(@PathVariable Long id){
+        ContentEditVO contentEditVO = mapper.selectByIdForEdit(id);
+        return ResultVO.ok(contentEditVO);
     }
 }

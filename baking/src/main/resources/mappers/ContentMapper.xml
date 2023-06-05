@@ -17,6 +17,11 @@
         FROM t_content c JOIN t_category cat ON c.category_id=cat.id
         WHERE c.type=#{type} AND c.create_by=#{id}
     </select>
+    <select id="selectByIdForEdit" resultType="cn.tedu.baking.pojo.vo.ContentEditVO">
+        SELECT id,title,img_url,video_url,type,category_id,content
+        FROM t_content
+        WHERE id=#{id}
+    </select>
 </mapper>
 
 

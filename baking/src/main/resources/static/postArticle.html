@@ -247,7 +247,20 @@
             }
         },
         created:function () {
-            axios.get("v1/categories/1/sub").then(function (response) {
+            //判断此时页面的作用是添加还是修改
+            //location.search得到地址栏中?及后面的内容   ?id=25
+            // "abc".includes("a")也是判断是否包含
+            if(location.search.indexOf("id")!=-1){//包含id 代表编辑
+                let id = location.search.split("=")[1];
+                axios.get("/v1/contents/"+id+"/edit").then(function (response){
+                    if(response.data.code==1){
+                        v.c = response.data.data;
+                        //更新富文本编辑器内容
+                        editor.setHtml(v.c.content);
+                    }
+                })
+            }
+            axios.get("/v1/categories/1/sub").then(function (response) {
                 if(response.data.code==1){
                     v.categoryArr = response.data.data;
                 }
@@ -261,8 +274,8 @@
     const editorConfig = {
         placeholder: '请填写详情...',
         onChange(editor) {
-            const html = editor.getHtml()
-            console.log('editor content', html)
+            const html = editor.getHtml();
+            console.log('editor content', html);
             //当富文本编辑器里面的值发生改变时 把该值付给内容对象
             v.c.content = html;
         }
