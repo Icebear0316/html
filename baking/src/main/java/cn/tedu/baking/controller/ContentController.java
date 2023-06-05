@@ -44,7 +44,10 @@ public class ContentController {
     public ResultVO management(@PathVariable Integer type,
                                @AuthenticationPrincipal CustomUserDetails userDetails){
         System.out.println("type = " + type + ", userDetails = " + userDetails);
-
+        //判断是否登录了
+        if(userDetails==null){
+            return new ResultVO(StatusCode.NOT_LOGIN);
+        }
         List<ContentManagementVO> list =
                 mapper.selectByType(type,userDetails.getId());
 
