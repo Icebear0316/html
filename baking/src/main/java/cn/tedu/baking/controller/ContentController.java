@@ -6,12 +6,16 @@ import cn.tedu.baking.pojo.dto.ContentDTO;
 import cn.tedu.baking.pojo.entity.Content;
 import cn.tedu.baking.pojo.vo.ContentManagementVO;
 import cn.tedu.baking.response.ResultVO;
+import cn.tedu.baking.response.StatusCode;
+import cn.tedu.baking.security.CustomUserDetails;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Date;
 import java.util.List;
 
@@ -37,8 +41,13 @@ public class ContentController {
     }
 
     @RequestMapping("/{type}/management")
-    public ResultVO management(@PathVariable Integer type){
-        List<ContentManagementVO> List = mapper.selectByType(type);
-        return ResultVO.ok();
+    public ResultVO management(@PathVariable Integer type,
+                               @AuthenticationPrincipal CustomUserDetails userDetails){
+        System.out.println("type = " + type + ", userDetails = " + userDetails);
+
+        List<ContentManagementVO> list =
+                mapper.selectByType(type,userDetails.getId());
+
+        return ResultVO.ok(list);
     }
 }

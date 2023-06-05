@@ -10,6 +10,13 @@
                 #{createTime}, null, null,
                 #{brief}, #{categoryId})
     </insert>
+    <select id="selectByType"
+            resultType="cn.tedu.baking.pojo.vo.ContentManagementVO">
+        SELECT  c.id,c.title,c.img_url,c.brief,c.type,
+                cat.name categoryName,c.view_count,c.comment_count,c.create_time
+        FROM t_content c JOIN t_category cat ON c.category_id=cat.id
+        WHERE c.type=#{type} AND c.create_by=#{id}
+    </select>
 </mapper>
 
 

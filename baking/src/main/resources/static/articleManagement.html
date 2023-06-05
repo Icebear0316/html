@@ -144,17 +144,19 @@
         },
         methods: {
             handleClick(tab, event) {
-                console.log(tab, event);
+                console.log(v.type);
+
             }
         },
         created:function () {
             //发出获取内容的请求
             axios.get("/v1/contents/1/management").then(function (response) {
                 if(response.data.code==1){
-                    v.categoryArr = response.data.data;
+                    v.contentArr = response.data.data;
                 }
             })
         }
+
     })
 </script>
 </html>
