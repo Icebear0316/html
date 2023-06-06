@@ -12,15 +12,25 @@
     </insert>
     <select id="selectByType"
             resultType="cn.tedu.baking.pojo.vo.ContentManagementVO">
-        SELECT  c.id,c.title,c.img_url,c.brief,c.type,
-                cat.name categoryName,c.view_count,c.comment_count,c.create_time
-        FROM t_content c JOIN t_category cat ON c.category_id=cat.id
-        WHERE c.type=#{type} AND c.create_by=#{id}
+        SELECT c.id,
+               c.title,
+               c.img_url,
+               c.brief,
+               c.type,
+               cat.name categoryName,
+               c.view_count,
+               c.comment_count,
+               c.create_time
+        FROM t_content c
+                 JOIN t_category cat ON c.category_id = cat.id
+        WHERE c.type = #{type}
+          AND c.create_by = #{id}
     </select>
-    <select id="selectByIdForEdit" resultType="cn.tedu.baking.pojo.vo.ContentEditVO">
-        SELECT id,title,img_url,video_url,type,category_id,content
+    <select id="selectByIdForEdit"
+            resultType="cn.tedu.baking.pojo.vo.ContentEditVO">
+        SELECT id, title, img_url, video_url, type, category_id, content
         FROM t_content
-        WHERE id=#{id}
+        WHERE id = #{id}
     </select>
     <update id="update">
         UPDATE t_content
@@ -40,9 +50,26 @@
         WHERE id=#{id}
     </update>
     <delete id="deleteById">
-        DELETE FROM t_content WHERE id=#{id}
+        DELETE
+        FROM t_content
+        WHERE id = #{id}
     </delete>
     <select id="selectByTypeAndCategoryId"
+            resultType="cn.tedu.baking.pojo.vo.ContentIndexVO">
+        SELECT c.id,
+        c.title,
+        cat.name categoryName,
+        u.nick_name,
+        u.img_url userImgUrl,
+        c.img_url
+        FROM t_content c
+        JOIN t_category cat ON c.category_id = cat.id
+        JOIN t_user u ON c.create_by = u.id
+        WHERE c.type=#{type}
+        <if test="categoryId!=0">AND c.category_id=#{categoryId}</if>
+        ORDER BY c.create_time DESC LIMIT 0,8
+    </select>
+    <select id="selectByTypeForList"
             resultType="cn.tedu.baking.pojo.vo.ContentIndexVO">
         SELECT c.id,
                c.title,
@@ -53,32 +80,42 @@
         FROM t_content c
                  JOIN t_category cat ON c.category_id = cat.id
                  JOIN t_user u ON c.create_by = u.id
-        WHERE c.type=#{type} <if test="categoryId!=0">AND c.category_id=#{categoryId}</if>
-            ORDER BY c.create_time DESC LIMIT 0,8
-    </select>
-    <select id="selectByTypeForList"
-            resultType="cn.tedu.baking.pojo.vo.ContentIndexVO">
-        SELECT c.id,
-        c.title,
-        cat.name  categoryName,
-        u.nick_name,
-        u.img_url userImgUrl,
-        c.img_url
-        FROM t_content c
-        JOIN t_category cat ON c.category_id = cat.id
-        JOIN t_user u ON c.create_by = u.id
-        WHERE c.type=#{type}
+        WHERE c.type = #{type}
         ORDER BY c.create_time DESC
     </select>
 
     <select id="selectByIdForDetail"
-        resultType="cn.tedu.baking.pojo.vo.ContentDetailVO">
-        SELECT c.id,title,brief,video_url,c.img_url,content,type,view_count,
-               comment_count,c.create_time,u.nick_name,u.img_url userImgUrl
-        FROM t_content c JOIN t_user u
-        ON c.create_by=u.id
-        WHERE c.id=#{id}
+            resultType="cn.tedu.baking.pojo.vo.ContentDetailVO">
+        SELECT c.id,
+               title,
+               brief,
+               video_url,
+               c.img_url,
+               content,
+               type,
+               view_count,
+               comment_count,
+               c.create_time,
+               u.nick_name,
+               u.img_url userImgUrl,
+               u.id userId
+        FROM t_content c
+                 JOIN t_user u
+                      ON c.create_by = u.id
+        WHERE c.id = #{id}
     </select>
+    <select id="selectOthersByUserId"
+            resultType="cn.tedu.baking.pojo.vo.ContentSimpleVO">
+        SELECT id,title,img_url,create_time
+        FROM t_content
+        WHERE create_by=#{userId}
+        LIMIT 0,4
+    </select>
+    <update id="updateViewCountById">
+        UPDATE t_content
+        SET view_count=view_count+1
+        WHERE id=#{id}
+    </update>
 
 </mapper>
 

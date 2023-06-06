@@ -4,10 +4,7 @@ package cn.tedu.baking.controller;
 import cn.tedu.baking.mapper.ContentMapper;
 import cn.tedu.baking.pojo.dto.ContentDTO;
 import cn.tedu.baking.pojo.entity.Content;
-import cn.tedu.baking.pojo.vo.ContentDetailVO;
-import cn.tedu.baking.pojo.vo.ContentEditVO;
-import cn.tedu.baking.pojo.vo.ContentIndexVO;
-import cn.tedu.baking.pojo.vo.ContentManagementVO;
+import cn.tedu.baking.pojo.vo.*;
 import cn.tedu.baking.response.ResultVO;
 import cn.tedu.baking.response.StatusCode;
 import cn.tedu.baking.security.CustomUserDetails;
@@ -109,8 +106,17 @@ public class ContentController {
 
     @RequestMapping("/{id}/detail")
     public ResultVO detail(@PathVariable Long id){
+        //通过id查询详情,代表浏览了一次
+        mapper.updateViewCountById(id);
+
         ContentDetailVO contentDetailVO = mapper.selectByIdForDetail(id);
         return ResultVO.ok(contentDetailVO);
     }
 
+    @RequestMapping("/{userId}/others")
+    public ResultVO others(@PathVariable Long userId){
+        List<ContentSimpleVO> list = mapper.selectOthersByUserId(userId);
+
+        return ResultVO.ok(list);
+    }
 }

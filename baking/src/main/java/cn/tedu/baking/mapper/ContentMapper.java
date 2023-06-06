@@ -2,10 +2,7 @@ package cn.tedu.baking.mapper;
 
 
 import cn.tedu.baking.pojo.entity.Content;
-import cn.tedu.baking.pojo.vo.ContentDetailVO;
-import cn.tedu.baking.pojo.vo.ContentEditVO;
-import cn.tedu.baking.pojo.vo.ContentIndexVO;
-import cn.tedu.baking.pojo.vo.ContentManagementVO;
+import cn.tedu.baking.pojo.vo.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +11,8 @@ import java.util.List;
 public interface ContentMapper {
     int insert(Content content);
 
-    List<ContentManagementVO> selectByType(Integer type,Long id);
+    List<ContentManagementVO> selectByType(Integer type, Long id);
+
 
     ContentEditVO selectByIdForEdit(Long id);
 
@@ -27,4 +25,7 @@ public interface ContentMapper {
     List<ContentIndexVO> selectByTypeForList(Integer type);
 
     ContentDetailVO selectByIdForDetail(Long id);
+
+    List<ContentSimpleVO> selectOthersByUserId(Long userId);
+    void updateViewCountById(Long id);
 }

@@ -34,7 +34,7 @@ Vue.component('my-header', {
             this.activeIndex = "0";
         }
         //如果是发帖页面则不选中任何一个
-        if(location.pathname=="/"||location.pathname=="/index.htnl"){
+        if (location.pathname.includes("postArticle")){
             this.activeIndex = null;
         }
 

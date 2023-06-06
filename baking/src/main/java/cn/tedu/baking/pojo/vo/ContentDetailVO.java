@@ -19,4 +19,6 @@ public class ContentDetailVO {
     private Date createTime;
     private String nickName;
     private String userImgUrl;
+    private Long userId;
+
 }
