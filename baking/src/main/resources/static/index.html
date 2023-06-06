@@ -42,9 +42,9 @@
                       <!--食谱导航开始-->
                     <el-menu mode="horizontal" default-active="0" active-text-color="orange">
                         <el-menu-item index="0">全部</el-menu-item>
-                        <el-menu-item index="1">面包</el-menu-item>
-                        <el-menu-item index="2">零食</el-menu-item>
-                        <el-menu-item index="3">家常菜</el-menu-item>
+                        <el-menu-item v-for="c in recipeCategoryArr"
+                                      :index="c.id">{{c.name}}</el-menu-item>
+
                     </el-menu>
                       <!--食谱导航结束-->
                 </el-col>
@@ -83,9 +83,9 @@
                     <!--视频导航开始-->
                     <el-menu mode="horizontal" default-active="0" active-text-color="orange">
                         <el-menu-item index="0">全部</el-menu-item>
-                        <el-menu-item index="1">面包教学</el-menu-item>
-                        <el-menu-item index="2">零食鉴赏</el-menu-item>
-                        <el-menu-item index="3">家常菜教程</el-menu-item>
+                        <el-menu-item v-for="c in videoCategoryArr"
+                                      :index="c.id">{{c.name}}</el-menu-item>
+
                     </el-menu>
                     <!--视频导航结束-->
                 </el-col>
@@ -124,8 +124,9 @@
                     <!--资讯导航开始-->
                     <el-menu mode="horizontal" default-active="0" active-text-color="orange">
                         <el-menu-item index="0">全部</el-menu-item>
-                        <el-menu-item index="1">美食资讯</el-menu-item>
-                        <el-menu-item index="2">店家资讯</el-menu-item>
+                        <el-menu-item v-for="c in infoCategoryArr"
+                                      :index="c.id">{{c.name}}</el-menu-item>
+
                     </el-menu>
                     <!--资讯导航结束-->
                 </el-col>
@@ -214,6 +215,9 @@
         el: '#app',
         data: function () {
             return {
+                recipeCategoryArr:[],
+                videoCategoryArr:[],
+                infoCategoryArr:[],
                 bannerArr:[],
                 recipeArr:[
                     {
@@ -258,6 +262,24 @@
             //发请求获取所有的轮播图数据
             axios.get("/v1/banners/").then(function (response) {
                 v.bannerArr = response.data.data;
+            })
+            //请求食谱相关分类数据
+            axios.get("/v1/categories/1/sub").then(function (response) {
+                if (response.data.code==1){
+                    v.recipeCategoryArr = response.data.data;
+                }
+            })
+            //请求视频相关分类数据
+            axios.get("/v1/categories/2/sub").then(function (response) {
+                if (response.data.code==1){
+                    v.videoCategoryArr = response.data.data;
+                }
+            })
+            //请求资讯相关分类数据
+            axios.get("/v1/categories/3/sub").then(function (response) {
+                if (response.data.code==1){
+                    v.infoCategoryArr = response.data.data;
+                }
             })
         }
     })
