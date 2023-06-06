@@ -5,6 +5,7 @@ import cn.tedu.baking.mapper.ContentMapper;
 import cn.tedu.baking.pojo.dto.ContentDTO;
 import cn.tedu.baking.pojo.entity.Content;
 import cn.tedu.baking.pojo.vo.ContentEditVO;
+import cn.tedu.baking.pojo.vo.ContentIndexVO;
 import cn.tedu.baking.pojo.vo.ContentManagementVO;
 import cn.tedu.baking.response.ResultVO;
 import cn.tedu.baking.response.StatusCode;
@@ -46,7 +47,7 @@ public class ContentController {
             mapper.insert(content);
         }else{//修改
             content.setUpdateTime(new Date());
-            content.setUpdateBy(userDetails.getId());//设置修改人为当前登陆的用户
+            content.setUpdateBy(userDetails.getId());//设置修改人为当前登录的用户
             mapper.update(content);
         }
 
@@ -78,7 +79,7 @@ public class ContentController {
     public ResultVO delete(@PathVariable Long id){
         //得到封面的图片路径 然后删除文件
         ContentEditVO contentEditVO = mapper.selectByIdForEdit(id);
-        new File("c:/files"+contentEditVO.getImgUrl()).delete();
+        new File(filePath+contentEditVO.getImgUrl()).delete();
         //如果内容为视频类型 则得到视频路径并删除
         if (contentEditVO.getType()==2){
             new File(filePath+contentEditVO.getVideoUrl()).delete();
@@ -88,4 +89,15 @@ public class ContentController {
         return ResultVO.ok();
 
     }
+
+
+    @RequestMapping("/{type}/{categoryId}/index")
+    public ResultVO index(@PathVariable Integer type,
+                          @PathVariable Long categoryId){
+        List<ContentIndexVO> list =
+                mapper.selectByTypeAndCategoryId(type,categoryId);
+
+        return ResultVO.ok(list);
+    }
+
 }

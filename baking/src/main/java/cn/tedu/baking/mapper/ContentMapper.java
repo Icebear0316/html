@@ -3,6 +3,7 @@ package cn.tedu.baking.mapper;
 
 import cn.tedu.baking.pojo.entity.Content;
 import cn.tedu.baking.pojo.vo.ContentEditVO;
+import cn.tedu.baking.pojo.vo.ContentIndexVO;
 import cn.tedu.baking.pojo.vo.ContentManagementVO;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,6 @@ public interface ContentMapper {
     void update(Content content);
 
     void deleteById(Long id);
+
+    List<ContentIndexVO> selectByTypeAndCategoryId(Integer type, Long categoryId);
 }
