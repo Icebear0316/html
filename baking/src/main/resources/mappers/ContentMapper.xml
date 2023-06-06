@@ -56,6 +56,30 @@
         WHERE c.type=#{type} <if test="categoryId!=0">AND c.category_id=#{categoryId}</if>
             ORDER BY c.create_time DESC LIMIT 0,8
     </select>
+    <select id="selectByTypeForList"
+            resultType="cn.tedu.baking.pojo.vo.ContentIndexVO">
+        SELECT c.id,
+        c.title,
+        cat.name  categoryName,
+        u.nick_name,
+        u.img_url userImgUrl,
+        c.img_url
+        FROM t_content c
+        JOIN t_category cat ON c.category_id = cat.id
+        JOIN t_user u ON c.create_by = u.id
+        WHERE c.type=#{type}
+        ORDER BY c.create_time DESC
+    </select>
+
+    <select id="selectByIdForDetail"
+        resultType="cn.tedu.baking.pojo.vo.ContentDetailVO">
+        SELECT c.id,title,brief,video_url,c.img_url,content,type,view_count,
+               comment_count,c.create_time,u.nick_name,u.img_url userImgUrl
+        FROM t_content c JOIN t_user u
+        ON c.create_by=u.id
+        WHERE c.id=#{id}
+    </select>
+
 </mapper>
 
 

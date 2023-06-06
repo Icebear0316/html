@@ -4,6 +4,7 @@ package cn.tedu.baking.controller;
 import cn.tedu.baking.mapper.ContentMapper;
 import cn.tedu.baking.pojo.dto.ContentDTO;
 import cn.tedu.baking.pojo.entity.Content;
+import cn.tedu.baking.pojo.vo.ContentDetailVO;
 import cn.tedu.baking.pojo.vo.ContentEditVO;
 import cn.tedu.baking.pojo.vo.ContentIndexVO;
 import cn.tedu.baking.pojo.vo.ContentManagementVO;
@@ -31,11 +32,10 @@ public class ContentController {
 
     @Autowired
     ContentMapper mapper;
-
     /**
-     * http://localhost:8088/v1/contents/add-new
+     *  http://localhost:8080/v1/contents/add-new
      * @return
-     * */
+     */
     @RequestMapping("add-new")
     public ResultVO addNew(@RequestBody ContentDTO contentDTO,
                            @AuthenticationPrincipal CustomUserDetails userDetails){
@@ -98,6 +98,19 @@ public class ContentController {
                 mapper.selectByTypeAndCategoryId(type,categoryId);
 
         return ResultVO.ok(list);
+    }
+
+    @RequestMapping("/{type}/list")
+    public ResultVO list(@PathVariable Integer type){
+        List<ContentIndexVO> list = mapper.selectByTypeForList(type);
+        return ResultVO.ok(list);
+
+    }
+
+    @RequestMapping("/{id}/detail")
+    public ResultVO detail(@PathVariable Long id){
+        ContentDetailVO contentDetailVO = mapper.selectByIdForDetail(id);
+        return ResultVO.ok(contentDetailVO);
     }
 
 }

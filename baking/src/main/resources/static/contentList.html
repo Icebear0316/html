@@ -21,6 +21,14 @@
         .el-header{
             background-color: white;
         }
+        .title_p{
+            height: 40px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp:2;
+            -webkit-box-orient: vertical;
+        }
+
     </style>
 </head>
 <body>
@@ -30,10 +38,13 @@
         <el-main class="center" >
             <!--内容列表开始-->
             <el-row gutter="20">
-                <el-col v-for="r in recipeArr" span="6">
+                <el-col v-for="r in contentArr" span="6">
                     <el-card style="margin: 10px 0">
-                        <img :src="r.imgUrl" width="100%" height="144">
-                        <p style="height: 40px">{{r.title}}</p>
+                        <a style="color: #333;text-decoration: none"
+                           :href="'/detail.html?id='+r.id">
+                            <img :src="r.imgUrl" width="100%" height="144">
+                            <p class="title_p">{{r.title}}</p>
+                        </a>
                         <el-row gutter="20">
                             <el-col span="4">
                                 <!--圆形图片,专门用来显示头像-->
@@ -109,44 +120,22 @@
         el: '#app',
         data: function () {
             return {
-                recipeArr:[
-                    {
-                        "id": 27,
-                        "title": "家常面包",
-                        "imgUrl": "imgs/a.jpg",
-                        "categoryName": "面包",
-                        "nickName": "汤姆",
-                        "userImgUrl": "imgs/head.jpg"
-                    },
-                    {
-                        "id": 18,
-                        "title": "爆浆抹茶甜甜圈面包，自带幸福感的小甜甜",
-                        "imgUrl": "imgs/b.jpg",
-                        "categoryName": "家常菜",
-                        "nickName": "汤姆",
-                        "userImgUrl": "imgs/head.jpg"
-                    },
-                    {
-                        "id": 17,
-                        "title": "心形火龙果椰蓉面包,任谁都抗拒不了",
-                        "imgUrl": "imgs/c.jpg",
-                        "categoryName": "小食",
-                        "nickName": "汤姆",
-                        "userImgUrl": "imgs/head.jpg"
-                    },
-                    {
-                        "id": 16,
-                        "title": "蔓越莓绿豆糕，味道还不错值得一试!",
-                        "imgUrl": "imgs/d.jpg",
-                        "categoryName": "面包",
-                        "nickName": "汤姆",
-                        "userImgUrl": "imgs/head.jpg"
-                    },
-                ]
+                contentArr:[]
             }
         },
         methods: {
-
+        },
+        created:function () {
+            //判断地址栏中是否包含type
+            if (location.search.includes("type")){
+                let type = location.search.split("=")[1];
+                //通过type请求相关的内容
+                axios.get("/v1/contents/"+type+"/list").then(function (response) {
+                    if (response.data.code==1){
+                        v.contentArr = response.data.data;
+                    }
+                })
+            }
         }
     })
 </script>
