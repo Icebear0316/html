@@ -5,6 +5,7 @@ import cn.tedu.baking.pojo.dto.UserLoginDTO;
 import cn.tedu.baking.pojo.dto.UserRegDTO;
 import cn.tedu.baking.pojo.dto.UserUpdateDTO;
 import cn.tedu.baking.pojo.entity.User;
+import cn.tedu.baking.pojo.vo.UserAdminVO;
 import cn.tedu.baking.pojo.vo.UserVO;
 import cn.tedu.baking.response.ResultVO;
 import cn.tedu.baking.response.StatusCode;
@@ -15,17 +16,20 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
-@RequestMapping("/v1/users")
+@RequestMapping("/v1/users/")
 public class UserController {
     @Autowired
     UserMapper mapper;
+
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -33,7 +37,7 @@ public class UserController {
     @RequestMapping("reg")
     public ResultVO reg(@RequestBody UserRegDTO userRegDTO){
         UserVO userVO = mapper.selectByUserName(userRegDTO.getUserName());
-        if(userVO!=null){
+        if (userVO!=null){//代表用户名已存在
             return new ResultVO(StatusCode.USERNAME_ALREADY_EXISTS);
         }
             User user = new User();
@@ -78,4 +82,26 @@ public class UserController {
         mapper.update(user);
         return ResultVO.ok();
     }
+    @RequestMapping("")
+    public ResultVO list(){
+        List<UserAdminVO> list = mapper.select();
+        return ResultVO.ok(list);
+    }
+    @RequestMapping("/{id}/{isAdmin}/change")
+    public ResultVO change(@PathVariable Long id,@PathVariable Integer isAdmin){
+
+        User user = new User();
+        user.setId(id);
+        user.setIsAdmin(isAdmin);
+        mapper.update(user);
+
+        return ResultVO.ok();
+    }
+
+    @RequestMapping("/{id}/delete")
+    public ResultVO delete(@PathVariable Long id){
+        mapper.deleteById(id);
+        return ResultVO.ok();
+    }
+
 }

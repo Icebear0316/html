@@ -129,4 +129,9 @@ public class ContentController {
         List<ContentIndexVO> list = mapper.selectByWd(wd);
         return ResultVO.ok(list);
     }
+    @RequestMapping("/{type}/admin")
+    public ResultVO admin(@PathVariable Integer type){
+        List<ContentAdminVO> list = mapper.selectByTypeForAdmin(type);
+        return ResultVO.ok(list);
+    }
 }

@@ -33,4 +33,8 @@ public interface ContentMapper {
     List<ContentSimpleVO> selectHot();
 
     List<ContentIndexVO> selectByWd(String wd);
+
+    List<ContentAdminVO> selectByTypeForAdmin(Integer type);
+
+    void updateCommentCount(Long contentId);
 }

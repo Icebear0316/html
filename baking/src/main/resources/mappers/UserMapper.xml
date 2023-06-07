@@ -35,8 +35,18 @@
                 img_url = #{imgUrl},
             </if>
         </set>
-        WHERE id=#{id}
+            WHERE id=#{id}
     </update>
+
+    <select id="select" resultType="cn.tedu.baking.pojo.vo.UserAdminVO">
+        SELECT id,user_name,nick_name,img_url,is_admin,create_time
+        FROM t_user
+        ORDER BY create_time DESC
+    </select>
+    <delete id="deleteById">
+        DELETE FROM t_user WHERE id=#{id}
+    </delete>
+
 </mapper>
 
 

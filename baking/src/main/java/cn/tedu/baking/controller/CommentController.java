@@ -1,6 +1,7 @@
 package cn.tedu.baking.controller;
 
 import cn.tedu.baking.mapper.CommentMapper;
+import cn.tedu.baking.mapper.ContentMapper;
 import cn.tedu.baking.pojo.dto.CommentDTO;
 import cn.tedu.baking.pojo.entity.Comment;
 import cn.tedu.baking.pojo.vo.CommentVO;
@@ -23,13 +24,16 @@ import java.util.List;
 public class CommentController {
     @Autowired
     CommentMapper mapper;
-
+    @Autowired
+    ContentMapper contentMapper;
     @RequestMapping("add-new")
     public ResultVO addNew(@RequestBody CommentDTO commentDTO,
                            @AuthenticationPrincipal CustomUserDetails userDetails){
         if (userDetails==null){
             return new ResultVO(StatusCode.NOT_LOGIN);
         }
+        //评论数量+1
+        contentMapper.updateCommentCount(commentDTO.getContentId());
         Comment comment = new Comment();
         BeanUtils.copyProperties(commentDTO,comment);
         comment.setUserId(userDetails.getId());

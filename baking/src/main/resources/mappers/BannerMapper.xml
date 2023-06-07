@@ -9,6 +9,15 @@
         FROM t_banner
         ORDER BY sort
     </select>
+    <select id="selectForAdmin"
+            resultType="cn.tedu.baking.pojo.vo.BannerAdminVO">
+        SELECT id, img_url,create_time
+        FROM t_banner
+        ORDER BY sort
+    </select>
+    <delete id="deleteById">
+        DELETE FROM t_banner WHERE id=#{id}
+    </delete>
 </mapper>
 
 

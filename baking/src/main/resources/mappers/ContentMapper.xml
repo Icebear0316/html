@@ -136,7 +136,17 @@
                  JOIN t_user u ON c.create_by = u.id
         WHERE title LIKE CONCAT('%',#{wd},'%')
     </select>
-
+    <select id="selectByTypeForAdmin"
+                resultType="cn.tedu.baking.pojo.vo.ContentAdminVO">
+        SELECT c.id,title,brief,img_url,cat.name categoryName,view_count,
+               comment_count,c.create_time
+        FROM t_content c JOIN t_category cat ON c.category_id=cat.id
+        WHERE c.type=#{type}
+    </select>
+    <update id="updateCommentCount">
+        UPDATE t_content SET comment_count=comment_count+1
+        WHERE id=#{contentId}
+    </update>
 </mapper>
 
 

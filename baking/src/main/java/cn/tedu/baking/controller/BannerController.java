@@ -5,6 +5,7 @@ import cn.tedu.baking.pojo.vo.BannerVO;
 import cn.tedu.baking.response.ResultVO;
 import cn.tedu.baking.response.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,17 @@ public class BannerController {
     public ResultVO select(){
 
         return ResultVO.ok(mapper.select());
+    }
+    @RequestMapping("admin")
+    public ResultVO admin(){
+
+        return ResultVO.ok(mapper.selectForAdmin());
+    }
+
+    @RequestMapping("/{id}/delete")
+    public ResultVO delete(@PathVariable Long id){
+        mapper.deleteById(id);
+        return ResultVO.ok();
     }
 
 
