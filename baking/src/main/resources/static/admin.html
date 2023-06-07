@@ -18,7 +18,8 @@
                             line-height: 70px">
                 烘焙坊后台管理系统
                 <span style="font-size: 20px;float: right">欢迎{{user.nickName}}回来!
-                    <a href="" style="color: orange">退出登录</a>
+                    <a href="javascript:void(0)" @click="logout()"
+                       style="color: orange">退出登录</a>
                 </span>
             </h1>
         </el-header>
@@ -273,6 +274,15 @@
             handleSelect(key,keyPath){
                 //key就是点击菜单项的index值
                 v.currentIndex = key;
+            },
+            logout(){
+                if (confirm("您确认退出登录吗?")){
+                    axios.get("/v1/users/logout").then(function () {
+                        localStorage.clear();
+                        location.href="/";
+                    })
+                }
+
             }
         },
         created:function () {
