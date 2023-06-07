@@ -27,7 +27,10 @@ public interface ContentMapper {
     ContentDetailVO selectByIdForDetail(Long id);
 
     List<ContentSimpleVO> selectOthersByUserId(Long userId);
+
     void updateViewCountById(Long id);
 
     List<ContentSimpleVO> selectHot();
+
+    List<ContentIndexVO> selectByWd(String wd);
 }

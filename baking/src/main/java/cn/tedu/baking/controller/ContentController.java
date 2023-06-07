@@ -124,4 +124,9 @@ public class ContentController {
         List<ContentSimpleVO> list = mapper.selectHot();
         return ResultVO.ok(list);
     }
+    @RequestMapping("/{wd}/search")
+    public ResultVO search(@PathVariable String wd){
+        List<ContentIndexVO> list = mapper.selectByWd(wd);
+        return ResultVO.ok(list);
+    }
 }

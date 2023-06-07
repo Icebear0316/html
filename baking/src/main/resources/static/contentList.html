@@ -136,6 +136,16 @@
                     }
                 })
             }
+            //判断地址中是否包含wd
+            if (location.search.includes("wd")){
+                let wd = new URLSearchParams(location.search).get("wd");
+                //请求和wd关键字相关的内容
+                axios.get("/v1/contents/"+wd+"/search").then(function (response) {
+                    if (response.data.code==1){
+                        v.contentArr = response.data.data;
+                    }
+                })
+            }
         }
     })
 </script>

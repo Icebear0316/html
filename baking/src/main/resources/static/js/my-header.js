@@ -2,10 +2,14 @@ Vue.component('my-header', {
     data: function () {
         return {
             user: localStorage.user ? JSON.parse(localStorage.user) : null,
-            activeIndex:"0"
+            activeIndex:"0",
+            wd:""
         }
     },
     methods: {
+        search(){
+          location.href="/contentList.html?wd="+this.wd;
+        },
         logout(){
             if (confirm("您确认退出登录吗?")){
                 //发请求退出登录
@@ -58,8 +62,8 @@ Vue.component('my-header', {
                         </el-menu>
                     </el-col>
                     <el-col span="6">
-                        <el-input style="margin-top: 15px" placeholder="请输入搜索的关键字">
-                            <el-button slot="append" icon="el-icon-search"></el-button>
+                        <el-input style="margin-top: 15px" v-model="wd" placeholder="请输入搜索的关键字">
+                            <el-button slot="append" @click="search()" icon="el-icon-search"></el-button>
                         </el-input>
                     </el-col>
                     <el-col span="2">

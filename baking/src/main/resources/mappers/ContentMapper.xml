@@ -123,6 +123,19 @@
         ORDER BY view_count DESC
         LIMIT 0,4
     </select>
+    <select id="selectByWd"
+            resultType="cn.tedu.baking.pojo.vo.ContentIndexVO">
+        SELECT c.id,
+               c.title,
+               cat.name  categoryName,
+               u.nick_name,
+               u.img_url userImgUrl,
+               c.img_url
+        FROM t_content c
+                 JOIN t_category cat ON c.category_id = cat.id
+                 JOIN t_user u ON c.create_by = u.id
+        WHERE title LIKE CONCAT('%',#{wd},'%')
+    </select>
 
 </mapper>
 
