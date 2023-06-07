@@ -113,10 +113,15 @@
                         <!--文章列表开始-->
                         <el-row gutter="10" v-for="c in othersArr">
                             <el-col span="10">
-                                <img :src="c.imgUrl" width="100%" height="70px">
+                                <a :href="'/detail.html?id='+c.id">
+                                    <img :src="c.imgUrl" width="100%" height="70px">
+                                </a>
                             </el-col>
                             <el-col span="14">
-                                <p class="title_p" style="margin: 0;">{{c.title}}</p>
+                                <a style="color: #333;text-decoration: none"
+                                        :href="'/detail.html?id='+c.id">
+                                    <p class="title_p" style="margin: 0;">{{c.title}}</p>
+                                </a>
                                 <i class="el-icon-time" style="color: #666">{{c.createTime}}</i>
                             </el-col>
                         </el-row>
@@ -129,13 +134,18 @@
                         <h3>热门文章</h3>
                         <el-divider></el-divider>
                         <!--文章列表开始-->
-                        <el-row gutter="10" v-for="item in 4">
+                        <el-row gutter="10" v-for="c in hotArr">
                             <el-col span="10">
-                                <img src="imgs/a.jpg" width="100%" height="70px">
+                                <a :href="'/detail.html?id='+c.id">
+                                <img :src="c.imgUrl" width="100%" height="70px">
+                                </a>
                             </el-col>
                             <el-col span="14">
-                                <p style="margin: 0;height: 50px">枣泥面包好吃到爆!</p>
-                                <i class="el-icon-time" style="color: #666">2023/6/30</i>
+                                <a style="color: #333;text-decoration: none"
+                                   :href="'/detail.html?id='+c.id">
+                                    <p class="title_p" style="margin: 0;">{{c.title}}</p>
+                                </a>
+                                <i class="el-icon-time" style="color: #666">{{c.createTime}}</i>
                             </el-col>
                         </el-row>
                         <!--文章列表结束-->
@@ -205,7 +215,8 @@
         data: function () {
             return {
                 c:{},
-                othersArr:[]
+                othersArr:[],
+                hotArr:[]
             }
         },
         methods: {
@@ -226,6 +237,12 @@
                     v.c = response.data.data;
                     //请求其它内容
                     v.loadUserOtherContent();
+                }
+            })
+            //发请求获取热门文章
+            axios.get("/v1/contents/hot").then(function (response) {
+                if (response.data.code==1){
+                    v.hotArr = response.data.data;
                 }
             })
 

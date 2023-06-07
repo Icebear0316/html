@@ -119,4 +119,9 @@ public class ContentController {
 
         return ResultVO.ok(list);
     }
+    @RequestMapping("/hot")
+    public ResultVO hot(){
+        List<ContentSimpleVO> list = mapper.selectHot();
+        return ResultVO.ok(list);
+    }
 }

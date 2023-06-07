@@ -116,6 +116,13 @@
         SET view_count=view_count+1
         WHERE id=#{id}
     </update>
+    <select id="selectHot"
+            resultType="cn.tedu.baking.pojo.vo.ContentSimpleVO">
+        SELECT id,title,img_url,create_time
+        FROM t_content
+        ORDER BY view_count DESC
+        LIMIT 0,4
+    </select>
 
 </mapper>
 
