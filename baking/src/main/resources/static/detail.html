@@ -78,14 +78,14 @@
                             </el-col>
                         </el-row>
                         <!--评论列表开始-->
-                        <el-row style="margin: 5px 0">
+                        <el-row v-for="c in commentArr" style="margin: 5px 0">
                             <el-col span="2">
-                                <el-avatar src="imgs/head.jpg"></el-avatar>
+                                <el-avatar :src="c.userImgUrl"></el-avatar>
                             </el-col>
                             <el-col span="20">
-                                <span style="color: orange;font-weight: bold">汤姆:</span>
-                                <p style="margin:5px 0">开起来很好吃!</p>
-                                <span style="color: #666;font-size: 12px">2023/5/26 15:52:30</span>
+                                <span style="color: orange;font-weight: bold">{{c.nickName}}:</span>
+                                <p style="margin:5px 0">{{c.content}}</p>
+                                <span style="color: #666;font-size: 12px">{{c.createTime}}</span>
                             </el-col>
                         </el-row>
                         <!--评论列表结束-->
@@ -219,7 +219,8 @@
                 c:{},
                 othersArr:[],
                 hotArr:[],
-                comment:{content:""}
+                comment:{content:""},
+                commentArr:[]
             }
         },
         methods: {
@@ -228,8 +229,8 @@
                     v.$message.error("请输入评论的内容!");
                     return
                 }
-                let user = JSON.parse(localStorage.user);
-                if (user==null){
+
+                if (localStorage.user==null){
                     alert("请先登录!");
                     location.href="/login.html";
                     return;
@@ -271,7 +272,12 @@
                     v.hotArr = response.data.data;
                 }
             })
-
+            //发请求获取评论
+            axios.get("/v1/comments/"+id).then(function (response) {
+                if (response.data.code==1){
+                    v.commentArr = response.data.data;
+                }
+            })
 
         }
     })

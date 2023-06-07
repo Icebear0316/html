@@ -94,7 +94,8 @@ Vue.component('my-header', {
                                 </a>
                                 <hr>
                                 <a href="/personal.html">个人中心</a>
-                                <a href="javascript:void(0)" @click="logout()">退出登录</a>
+                                <a href="javascript:void(0)" @click="logout()">退出登录</a><br>
+                                <a v-if="user.isAdmin==1" href="/admin.html">后台管理页面</a>
                             </div>
                             
                         </el-popover>

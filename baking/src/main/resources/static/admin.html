@@ -17,7 +17,7 @@
             <h1 style="color: white;font-size: 30px;margin: 0;
                             line-height: 70px">
                 烘焙坊后台管理系统
-                <span style="font-size: 20px;float: right">欢迎汤姆回来!
+                <span style="font-size: 20px;float: right">欢迎{{user.nickName}}回来!
                     <a href="" style="color: orange">退出登录</a>
                 </span>
             </h1>
@@ -142,6 +142,7 @@
         el: '#app',
         data: function () {
             return {
+                user:JSON.parse(localStorage.user),
                 userArr:[
                     {
                         "id":12,
@@ -272,6 +273,13 @@
             handleSelect(key,keyPath){
                 //key就是点击菜单项的index值
                 v.currentIndex = key;
+            }
+        },
+        created:function () {
+            let user = JSON.parse(localStorage.user);
+            if (user.isAdmin!=1){
+                alert("请登录管理员账户!");
+                location.href="/login.html";
             }
         }
     })

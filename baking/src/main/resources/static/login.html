@@ -95,18 +95,19 @@
         el: '#app',
         data: function () {
             return {
-                user:{userName:"baixiong2",password:"123456"}
+                user:{userName:"liubei",password:"admin"}
             }
         },
         methods: {
             login(){
                 axios.post("/v1/users/login",v.user).then(function (response) {
                     if (response.data.code==1){
-                        console.log(response.data.data);
 
-                        //把装着登陆成功用户信信息的对象保存到localStroage
+                        console.log(response.data.data);
+                        //把装着登录成功用户信息的对象保存到localStorage
                         localStorage.user = JSON.stringify(response.data.data);
-                        location.href="/";
+
+                        history.back();//返回上一页面
                     }else{
                         v.$message.error(response.data.msg);
                     }
