@@ -101,7 +101,7 @@
                 <!--轮播图表格结束-->
                 <!--内容表格开始-->
                 <el-table v-if="currentIndex>2" :data="contentArr" border>
-                    <el-table-column lable="编号" width="50px" type="index"></el-table-column>
+                    <el-table-column label="编号" width="50px" type="index"></el-table-column>
                     <el-table-column label="标题" width="150px"
                                      prop="title" align="center"></el-table-column>
                     <el-table-column label="封面" width="60px">
@@ -153,6 +153,19 @@
             }
         },
         methods: {
+            handleDelete(i,content){
+              if (confirm("您确定删除此内容吗?")){
+                  axios.post("/v1/contents/"+content.id+"/delete").then(function (response) {
+                      if (response.data.code==1){
+                          v.$message.success("删除完成!");
+                          v.contentArr.splice(i,1);
+                      }
+                  })
+              }
+            },
+            handleEdit(i,content){
+                location.href="/postArticle.html?id="+content.id;
+            },
             deleteBanner(i,banner){
                 if (confirm("您确认删除此轮播图吗？")){
                     axios.post("/v1/banners/"+banner.id+"/delete").then(function (response) {
@@ -217,8 +230,6 @@
             axios.get("/v1/users/").then(function (response) {
                 if (response.data.code==1){
                     v.userArr = response.data.data;
-
-
                 }
             })
             //请求所有轮播图数据

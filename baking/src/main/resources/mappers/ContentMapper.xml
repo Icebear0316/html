@@ -28,7 +28,7 @@
     </select>
     <select id="selectByIdForEdit"
             resultType="cn.tedu.baking.pojo.vo.ContentEditVO">
-        SELECT id, title, img_url, video_url, type, category_id, content
+        SELECT id, title, img_url, video_url, type, category_id, content, create_By
         FROM t_content
         WHERE id = #{id}
     </select>

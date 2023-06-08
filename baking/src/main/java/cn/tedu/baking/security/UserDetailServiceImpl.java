@@ -33,8 +33,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 //                .credentialsExpired(false) //登录凭证是否过期
 //                .authorities("权限")   //授权, 授予当前登录用户有哪些权限
 //                .build();
-        //模拟libai为管理员 其它是用户
-        String role = username.equals("libai")?"ADMIN":"USER";
+        //根据数据库中的管理员信息  权限
+        String role = userVO.getIsAdmin()==1?"ADMIN":"USER";
       // 如果用户输入的密码和数据库中查询到的密码不一致 则会抛出异常
         List<GrantedAuthority> list =
                 AuthorityUtils.createAuthorityList(role);

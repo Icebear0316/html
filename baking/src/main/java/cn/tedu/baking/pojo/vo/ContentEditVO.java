@@ -12,5 +12,6 @@ public class ContentEditVO {
     private Long type;
     private Long categoryId;
     private String content;
+    private Long createdBy;
 
 }

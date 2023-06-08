@@ -29,10 +29,8 @@ public class CommentController {
     @RequestMapping("add-new")
     public ResultVO addNew(@RequestBody CommentDTO commentDTO,
                            @AuthenticationPrincipal CustomUserDetails userDetails){
-        if (userDetails==null){
-            return new ResultVO(StatusCode.NOT_LOGIN);
-        }
-        //评论数量+1
+        if (userDetails==null){ return new ResultVO(StatusCode.NOT_LOGIN); }
+        //让评论数量+1
         contentMapper.updateCommentCount(commentDTO.getContentId());
         Comment comment = new Comment();
         BeanUtils.copyProperties(commentDTO,comment);

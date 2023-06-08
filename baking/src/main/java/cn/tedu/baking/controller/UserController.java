@@ -11,6 +11,7 @@ import cn.tedu.baking.response.ResultVO;
 import cn.tedu.baking.response.StatusCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -82,6 +83,8 @@ public class UserController {
         mapper.update(user);
         return ResultVO.ok();
     }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @RequestMapping("")
     public ResultVO list(){
         List<UserAdminVO> list = mapper.select();

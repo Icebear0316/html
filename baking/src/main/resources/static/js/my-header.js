@@ -8,6 +8,10 @@ Vue.component('my-header', {
     },
     methods: {
         search(){
+            if(this.wd.trim()==""){
+                this.$message.error("请输入搜索的内容!")
+                return;
+            }
           location.href="/contentList.html?wd="+this.wd;
         },
         logout(){
@@ -62,7 +66,7 @@ Vue.component('my-header', {
                         </el-menu>
                     </el-col>
                     <el-col span="6">
-                        <el-input style="margin-top: 15px" v-model="wd" placeholder="请输入搜索的关键字">
+                        <el-input style="margin-top: 15px" v-model="wd" @keydown.native.enter="search()" placeholder="请输入搜索的关键字">
                             <el-button slot="append" @click="search()" icon="el-icon-search"></el-button>
                         </el-input>
                     </el-col>

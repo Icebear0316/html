@@ -270,6 +270,15 @@
                 axios.get("/v1/contents/"+id+"/edit").then(function (response) {
                     if (response.data.code==1){
                         v.c = response.data.data;
+                        let user = JSON.parse(localStorage.user);
+                        //判断当前修改内容的作者id和登录用户的id是否一致,并且登陆用户不是管理员
+                        if(user.isAdmin!=1&&v.c.createdBy!=user.id){
+                            alert("没有权限修改此内容!")
+                            location,href="/";
+                            return;
+                        }
+
+                        v.c = response.data.data;
                         //更新富文本编辑器内容
                         editor.setHtml(v.c.content);
                         //给单独的变量赋值,让页面中的图片标签和oldImgUrl绑定
