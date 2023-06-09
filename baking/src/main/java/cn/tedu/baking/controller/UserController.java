@@ -41,15 +41,15 @@ public class UserController {
         if (userVO!=null){//代表用户名已存在
             return new ResultVO(StatusCode.USERNAME_ALREADY_EXISTS);
         }
-            User user = new User();
-            BeanUtils.copyProperties(userRegDTO,user);
-            user.setCreateTime(new Date());
-            user.setIsAdmin(0);//默认不是管理员
-            user.setImgUrl("/imgs/icon.png");
-            //密码加密
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            mapper.insert(user);
-            return ResultVO.ok();
+        User user = new User();
+        BeanUtils.copyProperties(userRegDTO, user);
+        user.setCreateTime(new Date());
+        user.setIsAdmin(0);//默认不是管理员
+        user.setImgUrl("/imgs/icon.png");
+        //让密码加密
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        mapper.insert(user);
+        return ResultVO.ok();
     }
 
     @Autowired
@@ -57,7 +57,8 @@ public class UserController {
 
 
     @RequestMapping("login")
-    public ResultVO login(@RequestBody UserLoginDTO userLoginDTO){
+    public ResultVO login(@RequestBody UserLoginDTO userLoginDTO) {
+        System.out.println("开始处理【用户登录】的请求，参数：" + userLoginDTO);
         //通过认证管理器启动Security的认证流程  返回认证结果对象
         Authentication result = manager.authenticate(new UsernamePasswordAuthenticationToken(
                 userLoginDTO.getUserName(), userLoginDTO.getPassword()));
